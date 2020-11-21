@@ -1,3 +1,23 @@
+readPassword() {
+  local enterPasswordMessage=$1
+  local firstPassword secondPassword
+  while true; do
+      echo "$enterPasswordMessage"
+      read -s firstPassword
+      echo "Confirm password:"
+      read -s secondPassword
+      [ "$firstPassword" = "$secondPassword" ] && break
+  done
+  echo "$firstPassword"
+}
+
+echo "Enter boot partition (e.g. sda1):"; read bootPartition
+echo "Enter root partition (e.g. sda2):"; read rootPartition
+echo "Enter computer name:"; read computerName
+rootPassword = $(readPassword "Enter root password")
+echo "Enter user name:"; read userName
+userPassword = $(readPassword "Enter root password")
+
 echo "Verifing the boot mode"
 if [ -z "$(ls -A /sys/firmware/efi/efivars)" ]; then
    echo "It looks like the system was booted in BIOS or CSM mode, exiting with error..."
@@ -12,53 +32,40 @@ if timedatectl | grep -q 'NTP service: actived'; then
 fi
 
 echo "Formatting partitions"
+mkfs.fat -F32 /dev/"$bootPartition"
+mkfs.ext4 /dev/"$rootPartition"
 
-echo "Updating the system clock"
+echo "Mounting partitions"
+mount /dev/"$rootPartition" /mnt
+mkdir /mnt/boot
+mount /dev/"$bootPartition" /mnt/boot
 
 echo "Installing Arch Linux and the core packages"
 pacstrap /mnt base linux linux-firmware base-devel
 
-
 echo "Setting up fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
-#! NTFS disks
-
-# Change root into the new system
-arch-chroot /mnt
 
 echo "Seting up time zone"
-ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
-hwclock --systohc
+ln -sf /mnt/usr/share/zoneinfo/America/New_York /mnt/etc/localtime
+arch-chroot /mnt hwclock --systohc
 
 echo "Setting up localization"
 echo "en_US.UTF-8 UTF-8
-en_US ISO-8859-1" > /etc/locale.gen
-echo 'TLANG=en_US.UTF-8' > /etc/locale.conf
+en_US ISO-8859-1" > /mnt/etc/locale.gen
+echo 'TLANG=en_US.UTF-8' > /mnt/etc/locale.conf
 
 echo "Setting up root password"
-- Run `passwd` to set up the password
+arch-chroot /mnt echo "$rootPassword" | passwd --stdin
 
 echo "Setting up network"
-pacman -Syu dialog wpa_supplicant dhcpcd netctl networkmanager
-
-- Create the file `/etc/hostname`, and add the line:
-  ```
-  <your-computer-name>
-  ```
-- Edit the file `/etc/hosts`, and add the lines:
-  ```
-  127.0.0.1	localhost
-  ::1 localhost
-  127.0.1.1	<your-computer-name>.localdomain	<your-computer-name>
-  ```
+arch-chroot /mnt pacman -Syu dialog wpa_supplicant dhcpcd netctl networkmanager
+echo "$computerName" > /mnt/etc/hostname
+echo "127.0.0.1	localhost
+::1 localhost
+127.0.1.1	$computerName.localdomain	$computerName" > /mnt/etc/locale.gen
 
 echo "Setting up GRUB"
-pacman -Syu grub efibootmgr os-prober
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
-- If dualbooting, make sure the windows partition is mounted.
-grub-mkconfig -o /boot/grub/grub.cfg
-
-echo "Rebooting"
-exit
-umount -R /mnt
-reboot
+arch-chroot /mnt pacman -Syu grub efibootmgr os-prober
+arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
+arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
