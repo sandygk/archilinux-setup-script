@@ -1,3 +1,5 @@
+#!/bin/bash
+
 readPassword() {
   local enterPasswordMessage=$1
   local firstPassword secondPassword
@@ -61,7 +63,7 @@ en_US ISO-8859-1" > /mnt/etc/locale.gen
 echo 'TLANG=en_US.UTF-8' > /mnt/etc/locale.conf
 
 echo "Setting up root password..."
-arch-chroot /mnt echo -e "$rootPassword\n$rootPassword" | passwd
+echo -e "$rootPassword\n$rootPassword" | arch-chroot /mnt passwd
 
 echo "Setting up network..."
 arch-chroot /mnt pacman -Syu --noconfirm dialog wpa_supplicant dhcpcd netctl networkmanager
