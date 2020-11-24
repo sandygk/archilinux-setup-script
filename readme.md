@@ -9,5 +9,4 @@ Follow the steps in my *archlinux* install guide to:
 - Connect to the internet.
 - Create the *root* and *boot* partitions if needed.
 - Run `curl -o install https://raw.githubusercontent.com/sandygk/archilinux-setup-script/master/install`
-- Run `./install`
-
+- Run `bash install`
