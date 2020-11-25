@@ -173,10 +173,11 @@ cd ..
 rm -rf yay
 
 greenEcho "Installing AUR packages..."
-arch-chroot /mnt Yay -S --noconfirm\
+arch-chroot /mnt yay -S --noconfirm\
 google-chrome
 vim-plug
 
+greenEcho "Installation completed!"
 
 #network
 #fish
