@@ -143,7 +143,6 @@ npm \
 openscad \
 pcmanfm \
 pinta \
-pureref \
 ranger \
 rclone \
 sxhkd \
@@ -182,8 +181,9 @@ arch-chroot /mnt bash -c "su $userName -c \"cd /home/$userName && git clone http
 
 greenEcho "Installing AUR packages..."
 arch-chroot /mnt yay -S --noconfirm\
-google-chrome
-vim-plug
+google-chrome \
+vim-plug \
+pureref
 
 greenEcho "Installation completed!"
 
