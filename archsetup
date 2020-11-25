@@ -1,14 +1,12 @@
 #!/bin/bash
 
+noColor='\033[0m'
+green='\033[0;32m'
+red='\033[0;31m'
 greenEcho() {
-  local noColor='\033[0m'
-  local green='\033[0;32m'
   echo -e "${green}$1${noColor}"
 }
-
 redEcho() {
-  local noColor='\033[0m'
-  local red='\033[0;32m'
   echo -e "${red}$1${noColor}"
 }
 
