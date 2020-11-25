@@ -1,6 +1,6 @@
 #!/bin/bash
 
-`greenEcho`() {
+greenEcho() {
   local noColor='\033[0m'
   local green='\033[0;32m'
   echo -e "${green}$1${noColor}"
