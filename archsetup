@@ -72,8 +72,15 @@ echo "en_US.UTF-8 UTF-8
 en_US ISO-8859-1" > /mnt/etc/locale.gen
 echo 'TLANG=en_US.UTF-8' > /mnt/etc/locale.conf
 
-greenEcho "Setting root password..."
+greenEcho "Setting root's password..."
 echo -e "$rootPassword\n$rootPassword" | arch-chroot /mnt passwd
+
+greenEcho "Adding user $userName..."
+arch-chroot /mnt useradd -m -g wheel $userName
+sed -i "/^# %wheel ALL=(ALL) NOPASSWD: ALL/ c%wheel ALL=(ALL) NOPASSWD: ALL" /mnt/etc/sudoers
+
+greenEcho "Setting $userName's password..."
+echo -e "$userPassword\n$userPassword" | arch-chroot /mnt passwd $userName
 
 greenEcho "Setting up network..."
 arch-chroot /mnt pacman -Syu --noconfirm dialog wpa_supplicant dhcpcd netctl networkmanager
@@ -86,3 +93,105 @@ greenEcho "Setting up GRUB..."
 arch-chroot /mnt pacman -Syu --noconfirm grub efibootmgr os-prober
 arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+
+greenEcho "Installing x server"
+arch-chroot /mnt pacman -Syu --noconfirm xorg-server xorg-xinit xorg-xrandr xorg-xsetroot
+echo 'allowed_users=anybody
+needs_root_rights=yes' > /mount/etc/X11/Xwrapper.config
+
+greenEcho "Installing windows manager..."
+arch-chroot /mnt pacman -Syu --noconfirm awesome
+
+greenEcho "Enabling autologin for $userName..."
+echo '[Service]
+ExecStart=
+ExecStart=-/usr/bin/agetty --autologin $userName --noclear %I $TERM' > /mnt/etc/systemd/system/getty@tty1.service.d/override.conf
+
+greenEcho "Downloading dotfiles"
+sudo pacman -Syu --noconfirm git
+git clone https://github.com/sandygk/dotfiles.git
+cp -a dotfiles/. /mnt/home/$userName
+rm -rf dotfiles
+
+greenEcho "Installing applications..."
+arch-chroot /mnt pacman -Syu --noconfirm \
+alacritty \
+arandr \
+blender \
+code \
+cura \
+dunst \
+file-roller \
+firefox \
+fish \
+flameshot \
+gimp \
+git \
+gpick \
+inkscape \
+krita \
+lxappearance \
+maim \
+mlocate \
+moreutils \
+mpv \
+neovim \
+npm \
+openscad \
+pcmanfm \
+pinta \
+pureref \
+ranger \
+rclone \
+sxhkd \
+sxiv \
+xclip \
+xorg-xrandr \
+xsel \
+youtube-dl \
+zathura \
+zathura-pdf-poppler \
+
+greenEcho "Installing tools..."
+arch-chroot /mnt pacman -Syu --noconfirm \
+fzf \
+inotify-tools \
+mlocate \
+moreutils \
+reflector \
+xdotool \
+
+greenEcho "Adding picom to fix screen tearing..."
+arch-chroot /mnt pacman -Syu --noconfirm picom
+
+greenEcho "Installing yay..."
+sudo pacman -Syu  --noconfirm git
+git clone https://aur.archlinux.org/yay.git
+cd yay
+arch-chroot /mnt makepkg -si
+cd ..
+rm -rf yay
+
+greenEcho "Installing AUR packages..."
+arch-chroot /mnt Yay -S --noconfirm\
+google-chrome
+vim-plug
+
+
+#network
+#fish
+#gtk and qt
+#auto hide cursor
+#numlock enabled by default
+#auto mount drives
+#disable action when lid closes
+#swap file
+#hibernation
+#xdg user directories
+#lts kernel
+#screen brightness
+#syncronize clocks
+#ssh
+#spell checker
+#npm without sudo
+#emojis
