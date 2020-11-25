@@ -1,78 +1,90 @@
 #!/bin/bash
 
+`greenEcho`() {
+  local noColor='\033[0m'
+  local green='\033[0;32m'
+  echo -e "${green}$1${noColor}"
+}
+
+redEcho() {
+  local noColor='\033[0m'
+  local red='\033[0;32m'
+  echo -e "${red}$1${noColor}"
+}
+
 readPassword() {
   local enterPasswordMessage=$1
   local firstPassword secondPassword
   while true; do
-      echo "$enterPasswordMessage"
+      greenEcho "$enterPasswordMessage"
       read -s firstPassword
       if [ -z "$firstPassword" ]; then
-        echo "Password cannot be empty, try again"
+        reedEcho "Password cannot be empty, try again"
         continue
       fi
-      echo "Confirm password:"
+      greenEcho "Confirm password:"
       read -s secondPassword
       [ "$firstPassword" = "$secondPassword" ] && break
-      echo "Passwords don't match, try again"
+      reedEcho "Passwords don't match, try again"
   done
   password="$firstPassword"
 }
 
-echo "Enter boot partition (e.g. sda1):"; read bootPartition
-echo "Enter root partition (e.g. sda2):"; read rootPartition
-echo "Enter computer name:"; read computerName
+greenEcho "Enter boot partition (e.g. sda1):"; read bootPartition
+greenEcho "Enter root partition (e.g. sda2):"; read rootPartition
+greenEcho "Enter computer name:"; read computerName
 readPassword "Enter root password:"; rootPassword=$password
-echo "Enter user name:"; read userName
+greenEcho "Enter user name:"; read userName
 readPassword "Enter user password:"; userPassword=$password
 
-echo "Verifing the boot mode..."
+greenEcho "Verifing the boot mode..."
 if [ -z "$(ls -A /sys/firmware/efi/efivars)" ]; then
-   echo "It looks like the system was booted in BIOS or CSM mode, exiting with error..."
+   redEcho "It looks like the system was booted in BIOS or CSM mode, exiting with errors..."
    exit 1
 fi
 
-echo "Updating the system clock..."
+greenEcho "Updating the system clock..."
 timedatectl set-ntp true
 if timedatectl | grep -q 'NTP service: actived'; then
-   echo "There was an error updating the system clock"
+   redEcho "There was an error updating the system clock"
    exit 1
 fi
 
-echo "Formatting partitions..."
+greenEcho "Formatting partitions..."
 mkfs.fat -F32 /dev/"$bootPartition"
 mkfs.ext4 -F /dev/"$rootPartition"
 
-echo "Mounting partitions..."
+greenEcho "Mounting partitions..."
 mount /dev/"$rootPartition" /mnt
 mkdir /mnt/boot
 mount /dev/"$bootPartition" /mnt/boot
 
-echo "Installing Arch Linux and the core packages..."
+greenEcho "Installing Arch Linux and the core packages..."
 pacstrap /mnt base linux linux-firmware base-devel
 
-echo "Setting up fstab..."
+greenEcho "Setting up fstab..."
 genfstab -U /mnt >> /mnt/etc/fstab
 
-echo "Seting up time zone..."
+greenEcho "Seting up time zone..."
 ln -sf /mnt/usr/share/zoneinfo/America/New_York /mnt/etc/localtime
 arch-chroot /mnt hwclock --systohc
 
-echo "Setting up localization..."
+greenEcho "Setting up localization..."
 echo "en_US.UTF-8 UTF-8
 en_US ISO-8859-1" > /mnt/etc/locale.gen
 echo 'TLANG=en_US.UTF-8' > /mnt/etc/locale.conf
 
-echo "Setting up root password..."
+greenEcho "Setting root password..."
 echo -e "$rootPassword\n$rootPassword" | arch-chroot /mnt passwd
 
-echo "Setting up network..."
+greenEcho "Setting up network..."
 arch-chroot /mnt pacman -Syu --noconfirm dialog wpa_supplicant dhcpcd netctl networkmanager
 echo "$computerName" > /mnt/etc/hostname
 echo "127.0.0.1	localhost
 ::1 localhost
 127.0.1.1	$computerName.localdomain	$computerName" > /mnt/etc/locale.gen
 
-echo "Setting up GRUB..."
+greenEcho "Setting up GRUB..."
 arch-chroot /mnt pacman -Syu --noconfirm grub efibootmgr os-prober
 arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
