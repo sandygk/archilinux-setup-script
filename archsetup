@@ -49,6 +49,8 @@ if timedatectl | grep -q 'NTP service: actived'; then
 fi
 
 greenEcho "Formatting partitions..."
+umount /mnt/boot
+umount /mnt
 mkfs.fat -F32 /dev/"$bootPartition"
 mkfs.ext4 -F /dev/"$rootPartition"
 
@@ -103,12 +105,13 @@ greenEcho "Installing windows manager..."
 arch-chroot /mnt pacman -Syu --noconfirm awesome
 
 greenEcho "Enabling autologin for $userName..."
+mkdir /mnt/etc/systemd/system/getty@tty1.service.d
 echo '[Service]
 ExecStart=
 ExecStart=-/usr/bin/agetty --autologin $userName --noclear %I $TERM' > /mnt/etc/systemd/system/getty@tty1.service.d/override.conf
 
 greenEcho "Downloading dotfiles"
-sudo pacman -Syu --noconfirm git
+pacman -Sy --noconfirm git
 git clone https://github.com/sandygk/dotfiles.git
 cp -a dotfiles/. /mnt/home/$userName
 rm -rf dotfiles
@@ -150,7 +153,7 @@ xorg-xrandr \
 xsel \
 youtube-dl \
 zathura \
-zathura-pdf-poppler \
+zathura-pdf-poppler
 
 greenEcho "Installing tools..."
 arch-chroot /mnt pacman -Syu --noconfirm \
@@ -159,18 +162,23 @@ inotify-tools \
 mlocate \
 moreutils \
 reflector \
-xdotool \
+xdotool
 
 greenEcho "Adding picom to fix screen tearing..."
 arch-chroot /mnt pacman -Syu --noconfirm picom
 
 greenEcho "Installing yay..."
-sudo pacman -Syu  --noconfirm git
-git clone https://aur.archlinux.org/yay.git
-cd yay
-arch-chroot /mnt makepkg -si
-cd ..
-rm -rf yay
+#arch-chroot /mnt bash -c "su $userName -c \"cd /home/$userName && git clone https://aur.archlinux.org/yay.git && (cd yay && makepkg -si --noconfirm) && rm -rf yay\""
+#pacman -S  --noconfirm git
+#cd /mnt/home/$userName
+#git clone https://aur.archlinux.org/yay.git
+#cd yay
+#arch-chroot /mnt bash -c "su $userName -c \"makepkg -si\""
+#cd ..
+#rm -rf yay
+#cd /root
+arch-chroot /mnt bash -c "su $userName -c \"cd /home/$userName && git clone https://aur.archlinux.org/yay.git && (cd yay && makepkg -si --noconfirm) && rm -rf yay\""
+
 
 greenEcho "Installing AUR packages..."
 arch-chroot /mnt yay -S --noconfirm\
