@@ -19,13 +19,13 @@ readPassword() {
       greenEcho "$enterPasswordMessage"
       read -s firstPassword
       if [ -z "$firstPassword" ]; then
-        reedEcho "Password cannot be empty, try again"
+        redEcho "Password cannot be empty, try again"
         continue
       fi
       greenEcho "Confirm password:"
       read -s secondPassword
       [ "$firstPassword" = "$secondPassword" ] && break
-      reedEcho "Passwords don't match, try again"
+      redEcho "Passwords don't match, try again"
   done
   password="$firstPassword"
 }
