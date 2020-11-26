@@ -199,6 +199,14 @@ arch-chroot /mnt \
       \" \
     "
 
+greenEcho "Setting up fish..."
+arch-chroot /mnt pacman -Syu --noconfirm fish
+arch-chroot /mnt \
+  bash -c \
+    "su $userName -c \
+      \"chsh -s /usr/bin/fish\" \
+    "
+
 greenEcho "Installation completed!"
 
 #todo:
