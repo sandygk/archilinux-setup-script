@@ -28,12 +28,24 @@ readPassword() {
   password="$firstPassword"
 }
 
+readYesOrNo() {
+  local question=$1
+  while true; do
+    read -p "$1\n" answer
+    case "$answer" in
+      y|Y|n|N ) break;;
+      * ) echo "Please type either 'y' or 'n'";;
+    esac
+  done
+}
+
 greenEcho "Enter boot partition (e.g. sda1):"; read bootPartition
 greenEcho "Enter root partition (e.g. sda2):"; read rootPartition
 greenEcho "Enter computer name:"; read computerName
 readPassword "Enter root password:"; rootPassword=$password
 greenEcho "Enter user name:"; read userName
 readPassword "Enter user password:"; userPassword=$password
+readYesOrNo "Is this a laptop?"; isLaptop=$answer
 
 greenEcho "Verifing the boot mode..."
 if [ -z "$(ls -A /sys/firmware/efi/efivars)" ]; then
@@ -62,14 +74,14 @@ mount /dev/"$bootPartition" /mnt/boot
 greenEcho "Installing Arch Linux and the core packages..."
 pacstrap /mnt base linux linux-firmware base-devel
 
-greenEcho "Setting up fstab..."
+greenEcho "Configuring fstab..."
 genfstab -U /mnt >> /mnt/etc/fstab
 
 greenEcho "Seting up time zone..."
 ln -sf /mnt/usr/share/zoneinfo/America/New_York /mnt/etc/localtime
 arch-chroot /mnt hwclock --systohc
 
-greenEcho "Setting up localization..."
+greenEcho "Configuring localization..."
 echo "en_US.UTF-8 UTF-8
 en_US ISO-8859-1" > /mnt/etc/locale.gen
 echo 'TLANG=en_US.UTF-8' > /mnt/etc/locale.conf
@@ -84,14 +96,14 @@ sed -i "/^# %wheel ALL=(ALL) NOPASSWD: ALL/ c%wheel ALL=(ALL) NOPASSWD: ALL" /mn
 greenEcho "Setting $userName's password..."
 echo -e "$userPassword\n$userPassword" | arch-chroot /mnt passwd $userName
 
-greenEcho "Setting up network..."
+greenEcho "Configuring network..."
 arch-chroot /mnt pacman -Syu --noconfirm dialog wpa_supplicant dhcpcd netctl networkmanager
 echo "$computerName" > /mnt/etc/hostname
 echo "127.0.0.1	localhost
 ::1 localhost
 127.0.1.1	$computerName.localdomain	$computerName" > /mnt/etc/locale.gen
 
-greenEcho "Setting up GRUB..."
+greenEcho "Configuring GRUB..."
 arch-chroot /mnt pacman -Syu --noconfirm grub efibootmgr os-prober
 arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
@@ -184,10 +196,7 @@ arch-chroot /mnt pacman -Syu --noconfirm \
   reflector \
   xdotool
 
-greenEcho "Adding picom to fix screen tearing..."
-arch-chroot /mnt pacman -Syu --noconfirm picom
-
-greenEcho "Installing AUR packages..."
+greenEcho "Installing AUR applications..."
 arch-chroot /mnt \
   bash -c \
     "su $userName -c \
@@ -199,31 +208,58 @@ arch-chroot /mnt \
       \" \
     "
 
-greenEcho "Setting up fish..."
-arch-chroot /mnt pacman -Syu --noconfirm fish
+greenEcho "Configuring audio..."
+arch-chroot /mnt pacman -Syu --noconfirm pulseaudio pavucontrol
+arch-chroot /mnt usermod -a -G audio $userName root
+
+greenEcho "Configuring fonts..."
 arch-chroot /mnt \
   bash -c \
     "su $userName -c \
-      \"chsh -s /usr/bin/fish\" \
+      \"yay -S --noconfirm all-repository-fonts\" \
     "
+
+greenEcho "Adding support for NTFS..."
+arch-chroot /mnt pacman -Syu --noconfirm ntfs-3g
+
+greenEcho "Adding picom to fix screen tearing..."
+arch-chroot /mnt pacman -Syu --noconfirm picom
+
+greenEcho "Configuring fish..."
+arch-chroot /mnt pacman -Syu --noconfirm fish
+arch-chroot /mnt chsh -s /usr/bin/fish $userPassword
+
+greenEcho "Configuring autohide cursor..."
+arch-chroot /mnt pacman -Syu --noconfirm unclutter
+
+greenEcho "Configuring automout drives..."
+arch-chroot /mnt pacman -Syu --noconfirm udiskie
+
+greenEcho "Enabling numlock by default..."
+arch-chroot /mnt pacman -Syu --noconfirm numlockx
+
+greenEcho "Configuring XDG user directories..."
+arch-chroot /mnt pacman -Syu --noconfirm xdg-user-dirs
+arch-chroot /mnt \
+  bash -c \
+    "su $userName -c \
+      \"xdg-user-dirs-update\" \
+    "
+
 
 greenEcho "Installation completed!"
 
 #todo:
-  #network
-  #fish
+  #syncronize clocks
   #gtk and qt
-  #auto hide cursor
-  #numlock enabled by default
-  #auto mount drives
   #disable action when lid closes
   #swap file
   #hibernation
-  #xdg user directories
   #lts kernel
   #screen brightness
-  #syncronize clocks
   #ssh
   #spell checker
   #npm without sudo
   #emojis
+  #nvidia
+  #fish (fish_update_completions)
