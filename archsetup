@@ -201,20 +201,21 @@ arch-chroot /mnt \
 
 greenEcho "Installation completed!"
 
-#network
-#fish
-#gtk and qt
-#auto hide cursor
-#numlock enabled by default
-#auto mount drives
-#disable action when lid closes
-#swap file
-#hibernation
-#xdg user directories
-#lts kernel
-#screen brightness
-#syncronize clocks
-#ssh
-#spell checker
-#npm without sudo
-#emojis
+#todo:
+  #network
+  #fish
+  #gtk and qt
+  #auto hide cursor
+  #numlock enabled by default
+  #auto mount drives
+  #disable action when lid closes
+  #swap file
+  #hibernation
+  #xdg user directories
+  #lts kernel
+  #screen brightness
+  #syncronize clocks
+  #ssh
+  #spell checker
+  #npm without sudo
+  #emojis
