@@ -246,7 +246,6 @@ arch-chroot /mnt \
       \"xdg-user-dirs-update\" \
     "
 
-
 greenEcho "Installation completed!"
 
 #todo:
