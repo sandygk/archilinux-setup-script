@@ -111,79 +111,93 @@ ExecStart=
 ExecStart=-/usr/bin/agetty --autologin $userName --noclear %I $TERM' > /mnt/etc/systemd/system/getty@tty1.service.d/override.conf
 
 greenEcho "Downloading dotfiles"
-pacman -Sy --noconfirm git
-git clone https://github.com/sandygk/dotfiles.git
-cp -a dotfiles/. /mnt/home/$userName
-rm -rf dotfiles
+arch-chroot /mnt pacman -Syu --noconfirm git
+arch-chroot /mnt \
+  bash -c \
+    "su $userName -c \
+      \" \
+      cd ~ && \
+      git clone https://github.com/sandygk/dotfiles.git && \
+      cp -a dotfiles/. ~ && \
+      rm -rf dotfiles
+      \" \
+    "
+
+greenEcho "Installing yay..."
+arch-chroot /mnt pacman -Syu --noconfirm git
+arch-chroot /mnt \
+  bash -c \
+    "su $userName -c \
+      \" \
+      cd /home/$userName && \
+      git clone https://aur.archlinux.org/yay.git && \
+      cd yay && \
+      makepkg -si --noconfirm && \
+      rm -rf yay \
+      \" \
+    "
 
 greenEcho "Installing applications..."
-arch-chroot /mnt pacman -Syu --noconfirm \
-alacritty \
-arandr \
-blender \
-code \
-cura \
-dunst \
-file-roller \
-firefox \
-fish \
-flameshot \
-gimp \
-git \
-gpick \
-inkscape \
-krita \
-lxappearance \
-maim \
-mlocate \
-moreutils \
-mpv \
-neovim \
-npm \
-openscad \
-pcmanfm \
-pinta \
-ranger \
-rclone \
-sxhkd \
-sxiv \
-xclip \
-xorg-xrandr \
-xsel \
-youtube-dl \
-zathura \
-zathura-pdf-poppler
+  arch-chroot /mnt pacman -Syu --noconfirm \
+  alacritty \
+  arandr \
+  blender \
+  code \
+  cura \
+  dunst \
+  file-roller \
+  firefox \
+  fish \
+  flameshot \
+  gimp \
+  git \
+  gpick \
+  inkscape \
+  krita \
+  lxappearance \
+  maim \
+  mlocate \
+  moreutils \
+  mpv \
+  neovim \
+  npm \
+  openscad \
+  pcmanfm \
+  pinta \
+  ranger \
+  rclone \
+  sxhkd \
+  sxiv \
+  xclip \
+  xorg-xrandr \
+  xsel \
+  youtube-dl \
+  zathura \
+  zathura-pdf-poppler
 
 greenEcho "Installing tools..."
 arch-chroot /mnt pacman -Syu --noconfirm \
-fzf \
-inotify-tools \
-mlocate \
-moreutils \
-reflector \
-xdotool
+  fzf \
+  inotify-tools \
+  mlocate \
+  moreutils \
+  reflector \
+  xdotool
 
 greenEcho "Adding picom to fix screen tearing..."
 arch-chroot /mnt pacman -Syu --noconfirm picom
 
-greenEcho "Installing yay..."
-#arch-chroot /mnt bash -c "su $userName -c \"cd /home/$userName && git clone https://aur.archlinux.org/yay.git && (cd yay && makepkg -si --noconfirm) && rm -rf yay\""
-#pacman -S  --noconfirm git
-#cd /mnt/home/$userName
-#git clone https://aur.archlinux.org/yay.git
-#cd yay
-#arch-chroot /mnt bash -c "su $userName -c \"makepkg -si\""
-#cd ..
-#rm -rf yay
-#cd /root
-arch-chroot /mnt bash -c "su $userName -c \"cd /home/$userName && git clone https://aur.archlinux.org/yay.git && (cd yay && makepkg -si --noconfirm) && rm -rf yay\""
-
-
 greenEcho "Installing AUR packages..."
-arch-chroot /mnt yay -S --noconfirm\
-google-chrome \
-vim-plug \
-pureref
+arch-chroot /mnt \
+  bash -c \
+    "su $userName -c \
+      \" \
+      yay -S --noconfirm \
+        google-chrome \
+        vim-plug \
+        pureref
+      \" \
+    "
 
 greenEcho "Installation completed!"
 
