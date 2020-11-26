@@ -1,8 +1,8 @@
 #!/bin/bash
 
-noColor='\033[0m'
-green='\033[0;32m'
-red='\033[0;31m'
+noColor="\033[0m"
+green="\033[0;32m"
+red="\033[0;31m"
 greenEcho() {
   echo -e "${green}$1${noColor}"
 }
@@ -14,16 +14,16 @@ readPassword() {
   local enterPasswordMessage=$1
   local firstPassword secondPassword
   while true; do
-      greenEcho "$enterPasswordMessage"
-      read -s firstPassword
-      if [ -z "$firstPassword" ]; then
-        redEcho "The password cannot be empty, try again"
-        continue
-      fi
-      greenEcho "Confirm password:"
-      read -s secondPassword
-      [ "$firstPassword" = "$secondPassword" ] && break
-      redEcho "The passwords must match, try again"
+    greenEcho "$enterPasswordMessage"
+    read -s firstPassword
+    if [ -z "$firstPassword" ]; then
+      redEcho "The password cannot be empty, try again"
+      continue
+    fi
+    greenEcho "Confirm password:"
+    read -s secondPassword
+    [ "$firstPassword" = "$secondPassword" ] && break
+    redEcho "The passwords must match, try again"
   done
   password="$firstPassword"
 }
@@ -37,15 +37,15 @@ readPassword "Enter user password:"; userPassword=$password
 
 greenEcho "Verifing the boot mode..."
 if [ -z "$(ls -A /sys/firmware/efi/efivars)" ]; then
-   redEcho "It looks like the system was booted in BIOS or CSM mode, exiting with errors..."
-   exit 1
+  redEcho "It looks like the system was booted in BIOS or CSM mode, exiting with errors..."
+  exit 1
 fi
 
 greenEcho "Updating the system clock..."
 timedatectl set-ntp true
-if timedatectl | grep -q 'NTP service: actived'; then
-   redEcho "There was an error updating the system clock"
-   exit 1
+if timedatectl | grep -q "NTP service: actived"; then
+  redEcho "There was an error updating the system clock"
+  exit 1
 fi
 
 greenEcho "Formatting partitions..."
@@ -98,17 +98,17 @@ arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 
 greenEcho "Installing x server"
 arch-chroot /mnt pacman -Syu --noconfirm xorg-server xorg-xinit xorg-xrandr xorg-xsetroot
-echo 'allowed_users=anybody
-needs_root_rights=yes' > /mount/etc/X11/Xwrapper.config
+echo "allowed_users=anybody
+needs_root_rights=yes" > /mount/etc/X11/Xwrapper.config
 
 greenEcho "Installing windows manager..."
 arch-chroot /mnt pacman -Syu --noconfirm awesome
 
 greenEcho "Enabling autologin for $userName..."
 mkdir /mnt/etc/systemd/system/getty@tty1.service.d
-echo '[Service]
+echo "[Service]
 ExecStart=
-ExecStart=-/usr/bin/agetty --autologin $userName --noclear %I $TERM' > /mnt/etc/systemd/system/getty@tty1.service.d/override.conf
+ExecStart=-/usr/bin/agetty --autologin $userName --noclear %I $TERM" > /mnt/etc/systemd/system/getty@tty1.service.d/override.conf
 
 greenEcho "Downloading dotfiles"
 arch-chroot /mnt pacman -Syu --noconfirm git
