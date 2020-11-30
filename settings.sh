@@ -61,17 +61,20 @@ sudo pacman -Syu --noconfirm xdg-user-dirs
 xdg-user-dirs-update
 
 
+echo_green "Syncronizing the clock..."
+echo_green "Configuring GTK and QT..."
+echo_green "Disabling action when lid closes..."
+echo_green "Setting up swap file..."
+echo_green "Configuring hibernation..."
+echo_green "Installing lts kernel..."
+echo_green "Configuring screen bringhtness..."
+echo_green "Setting openssh..."
+echo_green "Configuring emojis..."
+echo_green "Setting up nvidia drivers..."
+echo_green "Setting up docking station..."
+
+
 #todo:
-#syncronize clocks
-#gtk and qt
-#disable action when lid closes
-#swap file
-#hibernation
-#lts kernel
-#screen brightness
-#ssh
 #spell checker
 #npm without sudo
-#emojis
-#nvidia
 #fish (fish_update_completions)
