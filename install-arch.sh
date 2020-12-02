@@ -58,11 +58,14 @@ echo_green "Setting $user_name's password..."
 echo -e "$user_password\n$user_password" | arch-chroot /mnt passwd $user_name
 
 echo_green "Configuring network..."
-arch-chroot /mnt pacman -Syu --noconfirm dialog wpa_supplicant dhcpcd netctl networkmanager
+arch-chroot /mnt pacman -Syu --noconfirm dialog wpa_supplicant dhcpcd netctl networkmanager openssh git fish nvim
 echo "$computer_name" > /mnt/etc/hostname
 echo "127.0.0.1	localhost
 ::1 localhost
 127.0.1.1	$computer_name.localdomain	$computer_name" > /mnt/etc/locale.gen
+
+echo_green "Install  git fish and nvim for convenience..."
+arch-chroot /mnt pacman -Syu --noconfirm openssh git fish nvim
 
 echo_green "Configuring GRUB..."
 arch-chroot /mnt pacman -Syu --noconfirm grub efibootmgr os-prober

@@ -26,7 +26,8 @@ Follow the steps in my *archlinux* install guide to:
 
 ## Install my programs, drivers and apply my settings
 
-Log into the fresh *archlinux* install as your regular user (not root):
+- Log into the fresh *archlinux* install as your regular user (not root)
+- (Optional) Set up an ssh connection to continue the process remotely.
 - Run:
   ```sh
   git clone -o https://github.com/sandygk/archilinux-setup-script.git
