@@ -8,8 +8,7 @@ if [ "$VAR1" = "$VAR2" ]; then
 fi
 echo_green "Enter your password"; read -s password
 read_yes_or_no "Is this a laptop?"; is_laptop=$answer
-read_yes_or_no "Does it need nvidia drivers?"; install_nvidia_drivers=$answer
-read_yes_or_no "Does it connect to a docking station?"; set_up_docking_station=$answer
+
 
 echo_green "Installing x server"
 sudo pacman -Syu --noconfirm xorg-server xorg-xinit xorg-xrandr xorg-xsetroot
@@ -78,27 +77,10 @@ yay -S --noconfirm \
   breeze-obsidian-cursor-theme \
   papirus-gtk-icon-theme
 
-if [ $install_nvidia_drivers == "y" ] then
-  echo_green "Setting up nvidia drivers..."
-  sudo pacman -Syu ntfs-3g nvidia
-  nvidia-xconfig
-fi
 
 if [ $is_laptop == "y" ] then
   echo_green "Disabling action when lid closes..."
   sudo echo "HandleLidSwitch=ignore" > /etc/systemd/logind.conf
-fi
-
-if [ $set_up_docking_station == "y" ] then
-  echo_green "Setting up docking station..."
-  yay -S --noconfirm displaylink evdi-git
-  systemctl enable displaylink.service
-  sudo echo 'Section "OutputClass"
-Identifier "DisplayLink"
-MatchDriver "evdi"
-Driver "modesetting"
-Option  "AccelMethod" "none"
-EndSection' > /usr/share/X11/xorg.conf.d/20-evdidevice.conf
 fi
 
 echo_green "Configuring screen bringhtness..."
@@ -127,16 +109,4 @@ npm config set prefix ~/.npm
 echo_green "You need to reboot the system for some of the settings to be applied"
 
 
-#todo:
-#echo_green "Configuring hibernation..."
-  #document how to setup hibernation with swapfile
-  #echo_green "Configuring hibernation..."
-  #sudo grub-mkconfig -o /boot/grub/grub.cfg
-  #sudo mkinitcpio -p linux
-
-#split main packages documentation
-#clean documentation
-#clean scripts
-#document how to run script
-#settings for wacom
-#settings for gaomon mm
+#hibernation
