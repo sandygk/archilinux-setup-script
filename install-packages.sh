@@ -10,10 +10,6 @@ makepkg -si --noconfirm
 cd ..
 rm -rf yay
 
-
-
-
-
 echo_green "Installing applications..."
 sudo pacman -Syu --noconfirm \
   acpilight \
