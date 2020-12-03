@@ -61,7 +61,7 @@ if [ $is_laptop == "y" ] then;
   sudo bash -c "echo 'HandleLidSwitch=ignore' > /etc/systemd/logind.conf"
 fi
 
-echo_green "Configuring ssh..."
+echo_green "Configuring screen brightness..."
 sudo pacman -Syu --noconfirm acpilight
 
 echo_green "Configuring ssh..."
