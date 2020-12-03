@@ -10,11 +10,75 @@ makepkg -si --noconfirm
 cd ..
 rm -rf yay
 
+
+
+
+
+echo_green "Installing applications..."
+sudo pacman -Syu --noconfirm \
+  acpilight \
+  alacritty \
+  arandr \
+  awesome
+  blender \
+  code \
+  cura \
+  dunst \
+  file-roller \
+  firefox \
+  fish \
+  flameshot \
+  fzf \
+  gimp \
+  git \
+  gpick \
+  inkscape \
+  inotify-tools \
+  krita \
+  maim \
+  mlocate \
+  moreutils \
+  mpv \
+  neovim \
+  npm \
+  ntfs-3g \
+  numlockx \
+  openscad \
+  openssh \
+  pcmanfm \
+  picom \
+  pinta \
+  ranger \
+  rclone \
+  reflector \
+  sdcv \
+  sxhkd \
+  sxiv \
+  udiskie \
+  unclutter \
+  words \
+  xclip \
+  xdg-user-dirs \
+  xdotool \
+  xsel \
+  youtube-dl \
+  zathura \
+  zathura-pdf-poppler
+yay -S --noconfirm \
+  google-chrome \
+  vim-plug \
+  pureref
+
 echo_green "Installing x server and awesome wm..."
-sudo pacman -Syu --noconfirm xorg-server xorg-xinit xorg-xrandr xorg-xsetroot awesome
+sudo pacman -Syu --noconfirm xorg-server xorg-xinit xorg-xrandr xorg-xsetroot
+
 
 echo_green "Installing audio..."
 sudo pacman -Syu --noconfirm pulseaudio pavucontrol
+
+echo_green "Installing fonts..."
+sudo pacman -Syu --noconfirm ttf-joypixels noto-fonts-emoji
+yay -S --noconfirm all-repository-fonts
 
 echo_green "Installing GTK and QT themes and tools..."
 sudo pacman -Syu --noconfirm \
@@ -27,67 +91,3 @@ yay -S --noconfirm \
   breeze-snow-cursor-theme \
   breeze-obsidian-cursor-theme \
   papirus-gtk-icon-theme
-
-echo_green "Installing fonts..."
-sudo pacman -Syu --noconfirm ttf-joypixels noto-fonts-emoji
-yay -S --noconfirm all-repository-fonts
-
-echo_green "Installing applications..."
-sudo pacman -Syu --noconfirm \
-  alacritty \
-  arandr \
-  blender \
-  code \
-  cura \
-  dunst \
-  file-roller \
-  firefox \
-  fish \
-  flameshot \
-  gimp \
-  git \
-  gpick \
-  inkscape \
-  krita \
-  lxappearance \
-  maim \
-  mlocate \
-  moreutils \
-  mpv \
-  neovim \
-  npm \
-  openscad \
-  openssh \
-  pcmanfm \
-  pinta \
-  ranger \
-  rclone \
-  sxhkd \
-  sxiv \
-  xclip \
-  xorg-xrandr \
-  xsel \
-  youtube-dl \
-  zathura \
-  zathura-pdf-poppler
-yay -S --noconfirm \
-  google-chrome \
-  vim-plug \
-  pureref
-
-echo_green "Installing utilities..."
-sudo pacman -Syu --noconfirm \
-  acpilight \
-  fzf \
-  inotify-tools \
-  mlocate \
-  ntfs-3g \
-  numlockx \
-  moreutils \
-  picom \
-  reflector \
-  udiskie \
-  unclutter \
-  words \
-  xdg-user-dirs \
-  xdotool
