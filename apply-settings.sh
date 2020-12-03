@@ -9,16 +9,11 @@ fi
 echo_green "Enter your password"; read -s user_password
 read_yes_or_no "Is this a laptop?"; is_laptop=$answer
 
-echo_green "Installing x server"
-sudo pacman -Syu --noconfirm xorg-server xorg-xinit xorg-xrandr xorg-xsetroot
+echo_green "Configuring x server"
 sudo bash -c "echo 'allowed_users=anybody
 needs_root_rights=yes' > /etc/X11/Xwrapper.config"
 
-echo_green "Installing awesome wm..."
-sudo pacman -Syu --noconfirm awesome
-
 echo_green "Downloading dotfiles"
-sudo pacman -Syu --noconfirm git
 cd ~
 git clone https://github.com/sandygk/dotfiles.git
 cp -a dotfiles/. ~
@@ -28,7 +23,6 @@ echo_green "Set up time synchronization..."
 sudo systemctl enable --now systemd-timesyncd.service
 
 echo_green "Configuring audio..."
-sudo pacman -Syu --noconfirm pulseaudio pavucontrol
 sudo usermod -a -G audio "$user_name" root
 
 echo_green "Configuring fish..."
@@ -41,18 +35,6 @@ sudo bash -c "echo '[Service]
 ExecStart=
 ExecStart=-/usr/bin/agetty --autologin $user_name --noclear %I $TERM' > /etc/systemd/system/getty@tty1.service.d/override.conf"
 
-echo_green "Configuring GTK and QT..."
-sudo pacman -Syu --noconfirm \
-  gtk3 \
-  gnome-themes-extra \
-  qt5-style-plugins
-  xfce4-settings \
-  xfce4-appearance-settings \
-yay -S --noconfirm \
-  breeze-snow-cursor-theme \
-  breeze-obsidian-cursor-theme \
-  papirus-gtk-icon-theme
-
 echo_green "Configuring XDG user directories..."
 xdg-user-dirs-update
 
@@ -61,16 +43,11 @@ if [ $is_laptop == "y" ] then;
   sudo bash -c "echo 'HandleLidSwitch=ignore' > /etc/systemd/logind.conf"
 fi
 
-echo_green "Configuring screen brightness..."
-sudo pacman -Syu --noconfirm acpilight
-
 echo_green "Configuring ssh..."
-sudo pacman -Syu --noconfirm openssh
 sudo sed -i "/^#PermitRootLogin prohibit-password/ cPermitRootLogin yes" /etc/ssh/sshd_config
 echo "AllowUsers root $user_name" >> /etc/ssh/sshd_config
 
 echo_green "Configuring emojis..."
-sudo pacman -Syu --noconfirm ttf-joypixels noto-fonts-emoji
 fc-cache -f -v
 
 echo_green "Setting up swap file..."

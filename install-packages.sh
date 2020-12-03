@@ -10,7 +10,29 @@ makepkg -si --noconfirm
 cd ..
 rm -rf yay
 
-echo_green "Installing applications from official repo..."
+echo_green "Installing x server and awesome wm..."
+sudo pacman -Syu --noconfirm xorg-server xorg-xinit xorg-xrandr xorg-xsetroot awesome
+
+echo_green "Installing audio..."
+sudo pacman -Syu --noconfirm pulseaudio pavucontrol
+
+echo_green "Installing GTK and QT themes and tools..."
+sudo pacman -Syu --noconfirm \
+  gtk3 \
+  gnome-themes-extra \
+  qt5-style-plugins
+  xfce4-settings \
+  xfce4-appearance-settings \
+yay -S --noconfirm \
+  breeze-snow-cursor-theme \
+  breeze-obsidian-cursor-theme \
+  papirus-gtk-icon-theme
+
+echo_green "Installing fonts..."
+sudo pacman -Syu --noconfirm ttf-joypixels noto-fonts-emoji
+yay -S --noconfirm all-repository-fonts
+
+echo_green "Installing applications..."
 sudo pacman -Syu --noconfirm \
   alacritty \
   arandr \
@@ -35,6 +57,7 @@ sudo pacman -Syu --noconfirm \
   neovim \
   npm \
   openscad \
+  openssh \
   pcmanfm \
   pinta \
   ranger \
@@ -47,9 +70,14 @@ sudo pacman -Syu --noconfirm \
   youtube-dl \
   zathura \
   zathura-pdf-poppler
+yay -S --noconfirm \
+  google-chrome \
+  vim-plug \
+  pureref
 
-echo_green "Installing tools and misc from official repo..."
+echo_green "Installing utilities..."
 sudo pacman -Syu --noconfirm \
+  acpilight \
   fzf \
   inotify-tools \
   mlocate \
@@ -63,10 +91,3 @@ sudo pacman -Syu --noconfirm \
   words \
   xdg-user-dirs \
   xdotool
-
-echo_green "Installing AUR packages`..."
-yay -S --noconfirm \
-  all-repository-fonts \
-  google-chrome \
-  vim-plug \
-  pureref
