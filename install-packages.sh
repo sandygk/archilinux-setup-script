@@ -2,15 +2,16 @@
 source ./helpers
 
 echo_green "Installing yay..."
-pacman -Syu --noconfirm git
+sudo pacman -Syu --noconfirm git
 cd ~
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si --noconfirm
+cd ..
 rm -rf yay
 
-echo_green "Installing applications..."
-pacman -Syu --noconfirm \
+echo_green "Installing applications from official repo..."
+sudo pacman -Syu --noconfirm \
   alacritty \
   arandr \
   blender \
@@ -47,18 +48,25 @@ pacman -Syu --noconfirm \
   zathura \
   zathura-pdf-poppler
 
-echo_green "Installing tools..."
-pacman -Syu --noconfirm \
+echo_green "Installing tools and misc from official repo..."
+sudo pacman -Syu --noconfirm \
   fzf \
   inotify-tools \
   mlocate \
+  ntfs-3g \
+  numlockx \
   moreutils \
+  picom \
   reflector \
+  udiskie \
+  unclutter \
   words \
+  xdg-user-dirs \
   xdotool
 
-echo_green "Installing AUR applications..."
+echo_green "Installing AUR packages`..."
 yay -S --noconfirm \
+  all-repository-fonts \
   google-chrome \
   vim-plug \
   pureref

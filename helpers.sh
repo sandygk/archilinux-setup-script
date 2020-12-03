@@ -40,10 +40,11 @@ read_password() {
 read_yes_or_no() {
   local question=$1
   while true; do
-    read -p "$1 (y/n)\n" answer
+    echo_green "$1 (y/n)"
+    read answer
     case "$answer" in
       y|n ) break;;
-      * ) echo "Please type either 'y' or 'n'";;
+      * ) echo_green "Please type either 'y' or 'n'";;
     esac
   done
 }

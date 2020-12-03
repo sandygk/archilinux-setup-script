@@ -1,10 +1,10 @@
-# Archlinux setup script
+# Archlinux setup scripts
 
 ## Overview
 
 Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
 - `install-arch.sh` install arch (minimal install).
-- `install-programs.sh` install the programs I use.
+- `install-packages.sh` install the packages I use for software, fonts, etc.
 - `apply-settings.sh` apply the settings in use and downloads my *dotfiles*.
 - `install-drivers.sh` install the drivers for the hardware I own (this on is probably less useful for other people).
 - `helpers.sh` is just a collection of helper functios the other files use, is not meant to be run directly.
@@ -20,7 +20,7 @@ Follow the steps in my *archlinux* install guide to:
   ```sh
   git clone -o https://github.com/sandygk/archilinux-setup-script.git
   cd archlinux-setup-script
-  bash install-arch
+  bash install-arch.sh
   ```
 - Run `reboot` to restart the computer into your fresh *archlinux* install :)
 
@@ -31,10 +31,10 @@ Follow the steps in my *archlinux* install guide to:
 - Run:
   ```sh
   git clone -o https://github.com/sandygk/archilinux-setup-script.git
-  cd archlinux-setup-scripts`
-  bash install-programs
-  bash apply-settings
-  bash install-drivers
+  cd archlinux-setup-scripts
+  bash install-packages.sh
+  bash apply-settings.sh
+  bash install-drivers.sh
   cd ..
   rm -rf archlinux-setup-scripts
   ```

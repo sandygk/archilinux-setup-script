@@ -14,12 +14,12 @@ if [ $set_up_docking_station == "y" ] then
   echo_green "Setting up docking station..."
   yay -S --noconfirm displaylink evdi-git
   systemctl enable displaylink.service
-  sudo echo 'Section "OutputClass"
-Identifier "DisplayLink"
-MatchDriver "evdi"
-Driver "modesetting"
-Option  "AccelMethod" "none"
-EndSection' > /usr/share/X11/xorg.conf.d/20-evdidevice.conf
+  sudo bash -c "echo 'Section \"OutputClass\"
+Identifier \"DisplayLink\"
+MatchDriver \"evdi\"
+Driver \"modesetting\"
+Option  \"AccelMethod\" \"none\"
+EndSection' > /usr/share/X11/xorg.conf.d/20-evdidevice.conf"
 fi
 
 #settings for wacom
