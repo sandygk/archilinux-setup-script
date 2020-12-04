@@ -15,7 +15,7 @@ sudo pacman -Syu --noconfirm \
   acpilight \
   alacritty \
   arandr \
-  awesome
+  awesome \
   blender \
   code \
   cura \
@@ -65,7 +65,7 @@ yay -S --noconfirm \
   vim-plug \
   pureref
 
-echo_green "Installing x server and awesome wm..."
+echo_green "Installing X..."
 sudo pacman -Syu --noconfirm xorg-server xorg-xinit xorg-xrandr xorg-xsetroot
 
 echo_green "Installing audio..."
