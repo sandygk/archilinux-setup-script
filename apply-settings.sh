@@ -64,4 +64,8 @@ npm config set prefix ~/.npm
 
 echo_green "You need to reboot the system for some of the settings to be applied"
 
+#run PlugInstall in neovim
+#time is off
+#python npm
+#sxhkd runs commands from bash not fish
 #hibernation
