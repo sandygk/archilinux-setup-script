@@ -11,7 +11,7 @@ Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
 
 ## Install arch
 
-Follow the steps in my *archlinux* install guide to:
+Follow the steps in my [archlinux install guide](https://github.com/sandygk/guides/blob/master/archlinux-setup/installation-process/install.md) to:
 - Boot the *archlinux* iso.
 - Connect to the internet.
 - Create the *root* and *boot* partitions if needed.
@@ -27,7 +27,8 @@ Follow the steps in my *archlinux* install guide to:
 ## Install my programs, drivers and apply my settings
 
 - Log into the fresh *archlinux* install as your regular user (not root)
-- (Optional) Set up an ssh connection to continue the process remotely. Remember to login as your user, not root.
+- Connect to the internet. See steps to connect to wifi [here](https://github.com/sandygk/guides/blob/master/archlinux-setup/apps-and-settings/connect-to-wifi.md)
+- (Optional) Set up an ssh connection to continue the process remotely. Remember to login as your user, not root. Steps [here](https://github.com/sandygk/guides/blob/master/archlinux-setup/apps-and-settings/ssh.md)
 - Run:
   ```sh
   git clone -o https://github.com/sandygk/archilinux-setup-script.git
