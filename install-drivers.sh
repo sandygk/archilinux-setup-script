@@ -6,7 +6,7 @@ read_yes_or_no "Install docking station drivers?"; set_up_docking_station=$answe
 
 if [ $install_nvidia_drivers == "y" ] then
   echo_green "Setting up nvidia drivers..."
-  sudo pacman -Syu ntfs-3g nvidia
+  sudo pacman -Syu nvidia
   nvidia-xconfig
 fi
 
@@ -22,5 +22,5 @@ Option  \"AccelMethod\" \"none\"
 EndSection' > /usr/share/X11/xorg.conf.d/20-evdidevice.conf"
 fi
 
-#settings for wacom
-#settings for gaomon
+#wacom
+#gaomon
