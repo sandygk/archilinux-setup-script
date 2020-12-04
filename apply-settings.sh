@@ -23,29 +23,30 @@ echo_green "Set up time synchronization..."
 sudo systemctl enable --now systemd-timesyncd.service
 
 echo_green "Configuring audio..."
-sudo usermod -a -G audio "$user_name" root
+sudo usermod -a -G audio "$user_name"
 
 echo_green "Configuring fish..."
 echo  $user_password >> chsh -s /usr/bin/fish
-fish -c fish_update_completions
+fish -c fish_update_completions #this is failing for some reason
 
 echo_green "Enabling autologin for $user_name..."
-sudo mkdir /mnt/etc/systemd/system/getty@tty1.service.d
+sudo mkdir /etc/systemd/system/getty@tty1.service.d
 sudo bash -c "echo '[Service]
 ExecStart=
 ExecStart=-/usr/bin/agetty --autologin $user_name --noclear %I $TERM' > /etc/systemd/system/getty@tty1.service.d/override.conf"
 
 echo_green "Configuring XDG user directories..."
+mkdir downloads documents
 xdg-user-dirs-update
 
-if [ $is_laptop == "y" ] then;
+if [ $is_laptop == "y" ]; then
   echo_green "Disabling action when lid closes..."
-  sudo bash -c "echo 'HandleLidSwitch=ignore' > /etc/systemd/logind.conf"
+  sudo bash -c "echo 'HandleLidSwitch=ignore' >> /etc/systemd/logind.conf"
 fi
 
 echo_green "Configuring ssh..."
 sudo sed -i "/^#PermitRootLogin prohibit-password/ cPermitRootLogin yes" /etc/ssh/sshd_config
-echo "AllowUsers root $user_name" >> /etc/ssh/sshd_config
+sudo bash -c "echo 'AllowUsers root $user_name' >> /etc/ssh/sshd_config"
 
 echo_green "Configuring emojis..."
 fc-cache -f -v
