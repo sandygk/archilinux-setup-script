@@ -69,7 +69,7 @@ echo_green "Installing X..."
 sudo pacman -Syu --noconfirm xorg-server xorg-xinit xorg-xrandr xorg-xsetroot
 
 echo_green "Installing audio..."
-sudo pacman -Syu --noconfirm pulseaudio pavucontrol
+sudo pacman -Syu --noconfirm pulseaudio pavucontrol pamixer
 
 echo_green "Installing fonts..."
 sudo pacman -Syu --noconfirm ttf-joypixels noto-fonts-emoji
@@ -86,3 +86,6 @@ yay -S --noconfirm \
   breeze-snow-cursor-theme \
   breeze-obsidian-cursor-theme \
   papirus-gtk-icon-theme
+
+echo_green "Installing programming languages..."
+sudo pacman -Syu --noconfirm python python2 nodejs-lts-fermium npm

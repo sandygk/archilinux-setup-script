@@ -26,7 +26,7 @@ echo_green "Configuring audio..."
 sudo usermod -a -G audio "$user_name"
 
 echo_green "Configuring fish..."
-echo  $user_password >> chsh -s /usr/bin/fish
+echo  $user_password | chsh -s /bin/fish
 fish -c fish_update_completions #this is failing for some reason
 
 echo_green "Enabling autologin for $user_name..."
@@ -62,10 +62,11 @@ sudo bash -c "echo 'swapfile none swap defaults 0 0' >> /etc/fstab"
 echo_green "Configuring npm so it doesn't require sudo priviledges..."
 npm config set prefix ~/.npm
 
+echo_green "Installing nvim plugings.."
+nvim +PlugInstall +qall
+
 echo_green "You need to reboot the system for some of the settings to be applied"
 
-#run PlugInstall in neovim
 #time is off
-#python npm
-#sxhkd runs commands from bash not fish
 #hibernation
+#gtk theme is not changing
