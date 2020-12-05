@@ -39,7 +39,7 @@ echo_green "Configuring fstab..."
 genfstab -U /mnt >> /mnt/etc/fstab
 
 echo_green "Seting up time zone..."
-ln -sf /mnt/usr/share/zoneinfo/America/New_York /mnt/etc/localtime
+arch-chroot /mnt ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 arch-chroot /mnt hwclock --systohc
 
 echo_green "Configuring localization..."

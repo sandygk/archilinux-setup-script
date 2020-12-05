@@ -19,6 +19,7 @@ sudo pacman -Syu --noconfirm \
   blender \
   code \
   cura \
+  dmenu \
   dunst \
   file-roller \
   firefox \

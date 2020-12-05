@@ -67,6 +67,5 @@ nvim +PlugInstall +qall
 
 echo_green "You need to reboot the system for some of the settings to be applied"
 
-#time is off
 #hibernation
 #gtk theme is not changing
