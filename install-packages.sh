@@ -29,6 +29,7 @@ sudo pacman -Syu --noconfirm \
   gimp \
   git \
   gpick \
+  hsetroot \
   inkscape \
   inotify-tools \
   krita \
