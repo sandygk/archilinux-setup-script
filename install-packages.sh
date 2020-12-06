@@ -80,13 +80,15 @@ echo_green "Installing GTK and QT themes and tools..."
 sudo pacman -Syu --noconfirm \
   gtk3 \
   gnome-themes-extra \
-  qt5-style-plugins
-  xfce4-settings \
-  xfce4-appearance-settings \
+  xfce4-settings
 yay -S --noconfirm \
   breeze-snow-cursor-theme \
   breeze-obsidian-cursor-theme \
-  papirus-gtk-icon-theme
+  papirus-icon-theme-git \
+  qt5-styleplugins
+
+  
+  
 
 echo_green "Installing programming languages..."
 sudo pacman -Syu --noconfirm python python2 nodejs-lts-fermium npm
