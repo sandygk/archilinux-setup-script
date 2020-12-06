@@ -87,8 +87,5 @@ yay -S --noconfirm \
   papirus-icon-theme-git \
   qt5-styleplugins
 
-  
-  
-
 echo_green "Installing programming languages..."
 sudo pacman -Syu --noconfirm python python2 nodejs-lts-fermium npm
