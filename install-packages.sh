@@ -34,6 +34,7 @@ sudo pacman -Syu --noconfirm \
   inotify-tools \
   krita \
   maim \
+  man \
   mlocate \
   moreutils \
   mpv \
