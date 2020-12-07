@@ -27,7 +27,7 @@ Follow the steps in my [archlinux install guide](https://github.com/sandygk/guid
 ## Install my programs, drivers and apply my settings
 
 - Log into the fresh *archlinux* install as your regular user (not root)
-- Connect to the internet. See steps to connect to wifi [here](https://github.com/sandygk/guides/blob/master/archlinux-setup/apps-and-settings/connect-to-wifi.md)
+- Connect to the internet. See steps to connect to wifi [here](https://github.com/sandygk/guides/blob/master/archlinux-setup/settings/connect-to-wifi.md)
 - (Optional) Set up an ssh connection to continue the process remotely:
   ```sh
   systemctl start sshd.service
