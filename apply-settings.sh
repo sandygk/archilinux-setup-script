@@ -57,7 +57,7 @@ sudo dd if=/dev/zero of=/swapfile bs=1M count=$swap_size_in_mb status=progress
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
-sudo bash -c "echo 'swapfile none swap defaults 0 0' >> /etc/fstab"
+sudo bash -c "echo '/swapfile none swap defaults 0 0' >> /etc/fstab"
 
 echo_green "Setting up hibernation"
 swapfile_offset=$(sudo filefrag -v /swapfile | sed 's/\.\.//g' | awk '{ if($1=="0:"){print $4} }')
