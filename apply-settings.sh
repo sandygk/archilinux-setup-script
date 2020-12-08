@@ -61,7 +61,8 @@ sudo bash -c "echo '/swapfile none swap defaults 0 0' >> /etc/fstab"
 
 echo_green "Setting up hibernation"
 swapfile_offset=$(sudo filefrag -v /swapfile | sed 's/\.\.//g' | awk '{ if($1=="0:"){print $4} }')
-sudo sed -r -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"(.*)\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\1 resume=\/swapfile resume_offset=$swapfile_offset\"/" /etc/default/grub
+root_partition=$(df | grep '/$' | awk '{ print $1 }') #this is the partition where the swapfile is located
+sudo sed -r -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"(.*)\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\1 resume=$root_partition resume_offset=$swapfile_offset\"/" /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 sudo sed -r -i 's/HOOKS=\((.*)\)/HOOKS=(\1 resume)/' /etc/mkinitcpio.conf
 sudo mkinitcpio -p linux
