@@ -44,10 +44,6 @@ if [ $is_laptop == "y" ]; then
   sudo bash -c "echo 'HandleLidSwitch=ignore' >> /etc/systemd/logind.conf"
 fi
 
-echo_green "Configuring ssh..."
-sudo sed -i "/^#PermitRootLogin prohibit-password/ cPermitRootLogin yes" /etc/ssh/sshd_config
-sudo bash -c "echo 'AllowUsers root $user_name' >> /etc/ssh/sshd_config"
-
 echo_green "Configuring emojis..."
 fc-cache -f -v
 
