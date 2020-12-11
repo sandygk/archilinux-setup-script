@@ -19,7 +19,7 @@ Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
 - Run:
   ```sh
   pacman -Sy git
-  git clone -o https://github.com/sandygk/archilinux-setup-scripts.git
+  git clone https://github.com/sandygk/archlinux-setup-scripts.git
   cd archlinux-setup-script
   bash install-arch.sh
   ```
