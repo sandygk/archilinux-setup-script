@@ -34,7 +34,7 @@ Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
   - Run `ip address` to get your ip address
 - Run:
   ```sh
-  git clone https://github.com/sandygk/archilinux-setup-scripts.git
+  git clone https://github.com/sandygk/archlinux-setup-scripts.git
   cd archlinux-setup-scripts
   bash install-packages.sh
   bash apply-settings.sh
