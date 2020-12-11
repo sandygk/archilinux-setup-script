@@ -20,7 +20,7 @@ Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
   ```sh
   pacman -Sy git
   git clone https://github.com/sandygk/archlinux-setup-scripts.git
-  cd archlinux-setup-script
+  cd archlinux-setup-scripts
   bash install-arch.sh
   ```
 - Run `reboot` to restart the computer into your fresh *archlinux* install :)
@@ -37,7 +37,7 @@ Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
   - Run `ip address` to get your ip address
 - Run:
   ```sh
-  git clone https://github.com/sandygk/archilinux-setup-script.git
+  git clone https://github.com/sandygk/archilinux-setup-scripts.git
   cd archlinux-setup-scripts
   bash install-packages.sh
   bash apply-settings.sh
