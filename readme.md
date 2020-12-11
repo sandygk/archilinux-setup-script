@@ -18,6 +18,7 @@ Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
   - (Optional) Set up an ssh connection to continue the process remotely.
 - Run:
   ```sh
+  pacman -Sy git
   git clone -o https://github.com/sandygk/archilinux-setup-script.git
   cd archlinux-setup-script
   bash install-arch.sh
