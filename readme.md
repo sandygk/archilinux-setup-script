@@ -11,11 +11,11 @@ Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
 
 ## Install arch
 
-Follow the steps in my [archlinux install guide](https://github.com/sandygk/guides/blob/master/archlinux-setup/installation-process/install.md) to:
-- Boot the *archlinux* iso.
-- Connect to the internet.
-- Create the *root* and *boot* partitions if needed.
-- (Optional) Set up an ssh connection to continue the process remotely.
+- Follow the steps in my [archlinux install guide](https://github.com/sandygk/guides/blob/master/archlinux-setup/installation-process/install.md) to:
+  - Boot the *archlinux* iso.
+  - Connect to the internet.
+  - Create the *root* and *boot* partitions if needed.
+  - (Optional) Set up an ssh connection to continue the process remotely.
 - Run:
   ```sh
   git clone -o https://github.com/sandygk/archilinux-setup-script.git
