@@ -29,10 +29,7 @@ Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
 
 - Log into the fresh *archlinux* install as your regular user (not root)
 - Connect to the internet. See steps to connect to wifi [here](https://github.com/sandygk/guides/blob/master/archlinux-setup/settings/connect-to-wifi.md)
-- (Optional) Set up an ssh connection to continue the process remotely:
-  ```sh
-  systemctl start sshd.service
-  ```
+- (Optional) Set up an ssh connection to continue the process remotely, steps [here](https://github.com/sandygk/guides/blob/master/archlinux-setup/settings/ssh.md).
   Remember to login as your user from the client machine, not root.
   - Run `ip address` to get your ip address
 - Run:
