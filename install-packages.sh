@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./helpers
+source ./helpers.sh
 
 echo_green "Installing yay..."
 sudo pacman -Syu --noconfirm git

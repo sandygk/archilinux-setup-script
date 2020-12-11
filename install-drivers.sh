@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./helpers
+source ./helpers.sh
 
 read_yes_or_no "Install nvidia drivers?"; install_nvidia_drivers=$answer
 

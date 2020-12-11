@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./helpers
+source ./helpers.sh
 
 user_name=$(whoami)
 if [ "$user_name" = "root" ]; then

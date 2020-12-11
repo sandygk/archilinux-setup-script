@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./helpers
+source ./helpers.sh
 
 echo_green "Enter boot partition (e.g. sda1):"; read boot_partition
 echo_green "Enter root partition (e.g. sda2):"; read root_partition
