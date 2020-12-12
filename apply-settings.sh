@@ -69,4 +69,7 @@ npm config set prefix ~/.npm
 echo_green "Installing nvim plugings.."
 nvim +PlugInstall +qall
 
+echo_green "Installing VS Code extensions"
+~/bin/vscode_import_extensions
+
 echo_green "You need to reboot the system for some of the settings to be applied"
