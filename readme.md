@@ -11,7 +11,7 @@ Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
 
 ## Install arch
 
-- Follow the steps in my [archlinux install guide](https://github.com/sandygk/guides/blob/master/archlinux-setup/installation-process/install.md) to:
+- Follow the steps in my [archlinux install guide](https://github.com/sandygk/guides/blob/master/archlinux-setup/install/install.md) to:
   - Boot the *archlinux* iso.
   - Connect to the internet.
   - Create the *root* and *boot* partitions if needed.
