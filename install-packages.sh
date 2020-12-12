@@ -47,6 +47,7 @@ sudo pacman -Syu --noconfirm \
   pcmanfm \
   picom \
   pinta \
+  python-pynvim \
   ranger \
   rclone \
   reflector \
