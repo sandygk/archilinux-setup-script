@@ -39,7 +39,6 @@ sudo pacman -Syu --noconfirm \
   moreutils \
   mpv \
   neovim \
-  npm \
   ntfs-3g \
   numlockx \
   openscad \
