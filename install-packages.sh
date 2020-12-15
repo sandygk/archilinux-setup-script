@@ -59,8 +59,8 @@ sudo pacman -Syu --noconfirm \
   xclip \
   xdg-user-dirs \
   xdotool \
-  xsel \
   xorg-xev \
+  xsel \
   youtube-dl \
   zathura \
   zathura-pdf-poppler
