@@ -60,6 +60,7 @@ sudo pacman -Syu --noconfirm \
   xdg-user-dirs \
   xdotool \
   xsel \
+  xorg-xev \
   youtube-dl \
   zathura \
   zathura-pdf-poppler
