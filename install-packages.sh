@@ -53,6 +53,7 @@ sudo pacman -Syu --noconfirm \
   sdcv \
   sxhkd \
   sxiv \
+  transmission-gtk \
   udiskie \
   unclutter \
   words \
