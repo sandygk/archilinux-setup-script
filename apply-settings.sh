@@ -72,4 +72,7 @@ nvim +PlugInstall +qall
 echo_green "Installing VS Code extensions"
 ~/bin/vscode_import_extensions
 
+echo_green "Start/Enable PIA service..."
+sudo systemctl enable --now piavpn.service
+
 echo_green "You need to reboot the system for some of the settings to be applied"
