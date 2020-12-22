@@ -68,6 +68,7 @@ sudo pacman -Syu --noconfirm \
 yay -S --noconfirm \
   google-chrome \
   vim-plug \
+  piavpn-bin \
   pureref
 
 echo_green "Installing X..."
