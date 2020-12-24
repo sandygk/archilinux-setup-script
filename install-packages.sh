@@ -64,7 +64,8 @@ sudo pacman -Syu --noconfirm \
   xsel \
   youtube-dl \
   zathura \
-  zathura-pdf-poppler
+  zathura-cb \
+  zathura-pdf-mupdf
 yay -S --noconfirm \
   google-chrome \
   vim-plug \
