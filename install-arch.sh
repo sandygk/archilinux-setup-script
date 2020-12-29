@@ -62,7 +62,7 @@ arch-chroot /mnt pacman -Syu --noconfirm dialog wpa_supplicant dhcpcd netctl net
 echo "$computer_name" > /mnt/etc/hostname
 echo "127.0.0.1	localhost
 ::1 localhost
-127.0.1.1	$computer_name.localdomain	$computer_name" > /mnt/etc/locale.gen
+127.0.1.1	$computer_name.local	$computer_name" > /mnt/etc/hosts
 
 echo_green "Installing git fish and neovim for convenience..."
 arch-chroot /mnt pacman -Syu --noconfirm openssh git fish neovim
