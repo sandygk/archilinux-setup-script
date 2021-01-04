@@ -46,6 +46,7 @@ sudo pacman -Syu --noconfirm \
   pcmanfm \
   picom \
   pinta \
+  playerctl \
   python-pynvim \
   ranger \
   rclone \
