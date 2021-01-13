@@ -71,7 +71,8 @@ yay -S --noconfirm \
   google-chrome \
   vim-plug \
   piavpn-bin \
-  pureref
+  pureref \
+  simple-mtpfs
 
 echo_green "Installing X..."
 sudo pacman -Syu --noconfirm xorg-server xorg-xinit xorg-xrandr xorg-xsetroot
