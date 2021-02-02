@@ -23,7 +23,6 @@ sudo pacman -Syu --noconfirm \
   dunst \
   file-roller \
   firefox \
-  fish \
   flameshot \
   fzf \
   gimp \
@@ -69,6 +68,7 @@ sudo pacman -Syu --noconfirm \
   zathura-pdf-mupdf
 yay -S --noconfirm \
   google-chrome \
+  nvm \
   vim-plug \
   piavpn-bin \
   pureref \
@@ -94,6 +94,10 @@ yay -S --noconfirm \
   breeze-obsidian-cursor-theme \
   papirus-icon-theme-git \
   qt5-styleplugins
+
+echo_green "Installing programming languages..."
+sudo pacman -Syu --noconfirm fish python python2 nodejs
+yay -S --noconfirm fisher nvm
 
 echo_green "Installing programming languages..."
 sudo pacman -Syu --noconfirm python python2 nodejs-lts-fermium npm
