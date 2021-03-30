@@ -67,6 +67,7 @@ sudo pacman -Syu --noconfirm \
   zathura-cb \
   zathura-pdf-mupdf
 yay -S --noconfirm \
+  dropbox \
   google-chrome \
   nvm \
   vim-plug \
