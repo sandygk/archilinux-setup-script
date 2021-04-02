@@ -27,6 +27,7 @@ sudo pacman -Syu --noconfirm \
   fzf \
   gimp \
   git \
+  gparted \
   gpick \
   hsetroot \
   inkscape \
