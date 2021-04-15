@@ -13,8 +13,8 @@ Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
 
 - Boot the *archlinux* iso.
 - Connect to the internet.
-- Create the *root* and *boot* partitions if needed.
 - (Optional) Set up an ssh connection to continue the process remotely.
+- Create the *root* and *boot* partitions if needed.
 - Run:
   ```
   pacman -Sy git
