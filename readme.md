@@ -16,7 +16,7 @@ Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
 - Create the *root* and *boot* partitions if needed.
 - (Optional) Set up an ssh connection to continue the process remotely.
 - Run:
-  ```sh
+  ```
   pacman -Sy git
   git clone https://github.com/sandygk/archlinux-setup-scripts.git
   cd archlinux-setup-scripts
@@ -32,7 +32,7 @@ Scripts to install and setup *archlinux* to my liking. There are 5 scripts:
   Remember to login as your user from the client machine, not root.
   - Run `ip address` to get your ip address
 - Run:
-  ```sh
+  ```
   git clone https://github.com/sandygk/archlinux-setup-scripts.git
   cd archlinux-setup-scripts
   bash install-packages.sh
