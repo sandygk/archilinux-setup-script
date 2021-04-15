@@ -98,8 +98,5 @@ yay -S --noconfirm \
   qt5-styleplugins
 
 echo_green "Installing programming languages..."
-sudo pacman -Syu --noconfirm fish python python2 nodejs
+sudo pacman -Syu --noconfirm fish python python2 nodejs npm
 yay -S --noconfirm fisher nvm
-
-echo_green "Installing programming languages..."
-sudo pacman -Syu --noconfirm python python2 nodejs-lts-fermium npm
