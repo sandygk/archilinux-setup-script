@@ -9,21 +9,11 @@ fi
 echo_green "Enter your password"; read -s user_password
 read_yes_or_no "Is this a laptop?"; is_laptop=$answer
 
-echo_green "Configuring x server"
-sudo bash -c "echo 'allowed_users=anybody
-needs_root_rights=yes' > /etc/X11/Xwrapper.config"
-
 echo_green "Downloading dotfiles"
 cd ~
 git clone https://github.com/sandygk/dotfiles.git
 cp -a dotfiles/. ~
 rm -rf dotfiles
-
-echo_green "Set up time synchronization..."
-sudo systemctl enable --now systemd-timesyncd.service
-
-echo_green "Configuring audio..."
-sudo usermod -a -G audio "$user_name"
 
 echo_green "Configuring fish..."
 echo  $user_password | chsh -s /bin/fish
