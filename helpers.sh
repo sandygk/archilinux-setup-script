@@ -48,3 +48,33 @@ read_yes_or_no() {
     esac
   done
 }
+
+# helper function to install programs
+# by default it uses pacman but if
+# the first argument is "-a" it uses
+# yay instead. If the package(s) is not found
+# or there is an error, it prompts the user
+# for the option to retry with a different
+# package(s) name(s).
+install() {
+  local installer="sudo pacman"
+  local options="-S --noconfirm"
+  local args="$@" # the programs to install
+  if [ "$1" = "-a" ]; then
+    installer="yay"
+    args="${@:2}"
+  fi
+
+  while ! eval "$installer $options $args";
+  do
+    echo_green "There was an error installing \"$args\" using \"$installer\", probably due to a typo in the package(s) name(s)."
+    read_yes_or_no "Do you want to try again with different package(s) name(s)?";
+    if [ $answer == "y" ]; then
+      echo_green "Enter the package(s) name(s) space separated:"
+      read args
+    else
+      break
+    fi
+  done
+}
+

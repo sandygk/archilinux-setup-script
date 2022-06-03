@@ -1,11 +1,14 @@
 # Archlinux setup scripts
 
 ## Overview
+Scripts to configure a fresh *archlinux* install to my liking. The scripts are
+designed to be run on a fresh install of *archlinux* with a windows manager.
+I use the official `archinstall` script to achieve this.
 
-Scripts to configure a fresh *archlinux* install to my liking. There are 3 scripts:
+There are 3 scripts:
 - `install-packages.sh` install the packages I use for software, fonts, etc.
 - `apply-settings.sh` apply the settings in use and downloads my *dotfiles*.
-- `helpers.sh` is just a collection of helper functios the other files use, is not meant to be run directly.
+- `helpers.sh` collection of helper functions the other files use.
 
 ## Install my programs and apply my settings
 - Log into the fresh *archlinux* install as your regular user (not root)
