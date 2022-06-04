@@ -85,12 +85,8 @@ install() {
 ###########################
 #         PACKAGES        #
 ###########################
-
-echo_green "Enter your password"; read -s user_password
-read_yes_or_no "Is this a laptop?"; is_laptop=$answer
-
 echo_green "Setting no password for wheel group..."
-echo $user_password | sudo sed -i "/^# %wheel ALL=(ALL) NOPASSWD: ALL/ c%wheel ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
+sudo sed -i "/^# %wheel ALL=(ALL) NOPASSWD: ALL/ c%wheel ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
 
 echo_green "Installing yay..."
 sudo pacman -Syu --noconfirm git
@@ -295,10 +291,8 @@ echo_green "Configuring XDG user directories..."
 mkdir downloads documents
 xdg-user-dirs-update
 
-if [ $is_laptop == "y" ]; then
-  echo_green "Disabling action when lid closes..."
-  sudo bash -c "echo 'HandleLidSwitch=ignore' >> /etc/systemd/logind.conf"
-fi
+echo_green "Disabling action when lid closes..."
+sudo bash -c "echo 'HandleLidSwitch=ignore' >> /etc/systemd/logind.conf"
 
 echo_green "Configuring emojis..."
 fc-cache -f -v
