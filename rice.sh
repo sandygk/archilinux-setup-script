@@ -1,5 +1,90 @@
 #!/bin/bash
-source ./helpers.sh
+
+###########################
+#         HELPERS         #
+###########################
+
+#color consts
+noColor="\033[0m"
+green="\033[1;32m"
+red="\033[1;31m"
+
+# echoes argument in green
+echo_green() {
+  echo -e "${green}$1${noColor}"
+}
+
+# echoes argument in red
+echo_red() {
+  echo -e "${red}$1${noColor}"
+}
+
+# prompts the user to enter and confimr a password
+# leaves the password in the global variable $password
+read_password() {
+  local enterPasswordMessage=$1
+  local firstPassword secondPassword
+  while true; do
+    echo_green "$enterPasswordMessage"
+    read -s firstPassword
+    if [ -z "$firstPassword" ]; then
+      echo_red "The password cannot be empty, try again"
+      continue
+    fi
+    echo_green "Confirm password:"
+    read -s secondPassword
+    [ "$firstPassword" = "$secondPassword" ] && break
+    echo_red "The passwords must match, try again"
+  done
+  password="$firstPassword"
+}
+
+# prompts the user to answer a yes or no question
+# leaves the answer in the global variable $answer
+read_yes_or_no() {
+  local question=$1
+  while true; do
+    echo_green "$1 (y/n)"
+    read answer
+    case "$answer" in
+      y|n ) break;;
+      * ) echo_green "Please type either 'y' or 'n'";;
+    esac
+  done
+}
+
+# helper function to install programs
+# by default it uses pacman but if
+# the first argument is "-a" it uses
+# yay instead. If the package(s) is not found
+# or there is an error, it prompts the user
+# for the option to retry with a different
+# package(s) name(s).
+install() {
+  local installer="sudo pacman"
+  local options="-S --noconfirm"
+  local args="$@" # the programs to install
+  if [ "$1" = "-a" ]; then
+    installer="yay"
+    args="${@:2}"
+  fi
+
+  while ! eval "$installer $options $args";
+  do
+    echo_green "There was an error installing \"$args\" using \"$installer\", probably due to a typo in the package(s) name(s)."
+    read_yes_or_no "Do you want to try again with different package(s) name(s)?"
+    if [ $answer == "y" ]; then
+      echo_green "Enter the package(s) name(s) space separated:"
+      read args
+    else
+      break
+    fi
+  done
+}
+
+###########################
+#         PACKAGES        #
+###########################
 
 echo_green "Installing yay..."
 sudo pacman -Syu --noconfirm git
@@ -41,7 +126,7 @@ echo_green "Installing fonts..."
 # emoji font
 install ttf-joypixels
 # extensive collection of fonts
-install -a all-repository-font
+install -a all-repository-fonts
 # emoji font
 noto-fonts-emoji\
 
@@ -85,9 +170,6 @@ install -a dropbox
 install -a piavpn-bin
 # GUI archive manager to compress and decompress files
 install file-roller
-# client for a plex server, see setup instructions here:
-# https://wiki.archlinux.org/index.php/Plex#Setup
-install -a plex-media-server
 # to store drawing references
 install -a pureref
 # hot key daemon
@@ -98,6 +180,10 @@ echo_green "Installing utilities..."
 install acpilight
 # GUI to manage the displays
 install arandr
+# GUI to manage audio
+install pavucontrol
+# command line audio utility, I use it to get the volume on the status bar
+install pamixer
 # extensible menu, I install it for `stest` which generates a list of all the applications in the system
 install dmenu
 # notification manager
@@ -171,3 +257,78 @@ install -a
   breeze-obsidian-cursor-theme \
   papirus-icon-theme-git \
   qt5-styleplugins
+
+
+###########################
+#        SETTINGS         #
+###########################
+
+user_name=$(whoami)
+if [ "$user_name" = "root" ]; then
+  echo_red "This script should not be excecuted by the 'root' user, exiting with errors..."
+  exit 1
+fi
+echo_green "Enter your password"; read -s user_password
+read_yes_or_no "Is this a laptop?"; is_laptop=$answer
+
+echo_green "Downloading dotfiles"
+cd ~
+git clone https://github.com/sandygk/dotfiles.git
+cp -a dotfiles/. ~
+rm -rf dotfiles
+
+echo_green "Configuring fish..."
+echo  $user_password | chsh -s /bin/fish
+fish -c fish_update_completions #this is failing for some reason
+
+echo_green "Enabling autologin for $user_name..."
+sudo mkdir /etc/systemd/system/getty@tty1.service.d
+sudo bash -c "echo '[Service]
+ExecStart=
+ExecStart=-/usr/bin/agetty --autologin $user_name --noclear %I $TERM' > /etc/systemd/system/getty@tty1.service.d/override.conf"
+
+echo_green "Configuring XDG user directories..."
+mkdir downloads documents
+xdg-user-dirs-update
+
+if [ $is_laptop == "y" ]; then
+  echo_green "Disabling action when lid closes..."
+  sudo bash -c "echo 'HandleLidSwitch=ignore' >> /etc/systemd/logind.conf"
+fi
+
+echo_green "Configuring emojis..."
+fc-cache -f -v
+
+echo_green "Setting up swap file..."
+swap_size_in_mb=$(free -m | grep Mem: | awk '{ print $2 }') # matching the RAM size
+sudo dd if=/dev/zero of=/swapfile bs=1M count=$swap_size_in_mb status=progress
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo bash -c "echo '/swapfile none swap defaults 0 0' >> /etc/fstab"
+
+echo_green "Setting up hibernation"
+swapfile_offset=$(sudo filefrag -v /swapfile | sed 's/\.\.//g' | awk '{ if($1=="0:"){print $4} }')
+root_partition=$(df | grep '/$' | awk '{ print $1 }') #this is the partition where the swapfile is located
+sudo sed -r -i "s@GRUB_CMDLINE_LINUX_DEFAULT=\"(.*)\"@GRUB_CMDLINE_LINUX_DEFAULT=\"\1 resume=$root_partition resume_offset=$swapfile_offset\"@" /etc/default/grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+sudo sed -r -i 's/HOOKS=\((.*)\)/HOOKS=(\1 resume)/' /etc/mkinitcpio.conf
+sudo mkinitcpio -p linux
+
+echo_green "Configuring npm so it doesn't require sudo priviledges..."
+npm config set prefix ~/.npm
+
+echo_green "Installing nvim plugings.."
+nvim +PlugInstall +qall
+
+echo_green "Installing VS Code extensions"
+~/bin/vscode_import_extensions
+
+echo_green "Start/Enable PIA service..."
+sudo systemctl enable --now piavpn.service
+
+echo_green "You need to reboot the system for some of the settings to be applied"
+read_yes_or_no "Do you want to reboot now?"
+if [ $answer == "y" ]; then
+  reboot
+fi

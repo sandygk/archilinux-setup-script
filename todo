@@ -1,0 +1,6 @@
+- fix that it keeps asking for password after install
+- it keeps asking for sudo password during install
+- ask all the questions at the beginning
+- add missing settings
+- find more applications
+- fix pureref
