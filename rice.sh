@@ -87,7 +87,7 @@ install() {
 ###########################
 
 echo_green "Setting no password for wheel group..."
-sed -i "/^# %wheel ALL=(ALL) NOPASSWD: ALL/ c%wheel ALL=(ALL) NOPASSWD: ALL" /mnt/etc/sudoers
+sed -i "/^# %wheel ALL=(ALL) NOPASSWD: ALL/ c%wheel ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
 
 echo_green "Installing yay..."
 sudo pacman -Syu --noconfirm git
