@@ -86,8 +86,11 @@ install() {
 #         PACKAGES        #
 ###########################
 
+echo_green "Enter your password"; read -s user_password
+read_yes_or_no "Is this a laptop?"; is_laptop=$answer
+
 echo_green "Setting no password for wheel group..."
-sed -i "/^# %wheel ALL=(ALL) NOPASSWD: ALL/ c%wheel ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
+user_password | sudo sed -i "/^# %wheel ALL=(ALL) NOPASSWD: ALL/ c%wheel ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
 
 echo_green "Installing yay..."
 sudo pacman -Syu --noconfirm git
@@ -271,8 +274,6 @@ if [ "$user_name" = "root" ]; then
   echo_red "This script should not be excecuted by the 'root' user, exiting with errors..."
   exit 1
 fi
-echo_green "Enter your password"; read -s user_password
-read_yes_or_no "Is this a laptop?"; is_laptop=$answer
 
 echo_green "Downloading dotfiles"
 cd ~
