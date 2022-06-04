@@ -90,7 +90,7 @@ echo_green "Enter your password"; read -s user_password
 read_yes_or_no "Is this a laptop?"; is_laptop=$answer
 
 echo_green "Setting no password for wheel group..."
-user_password | sudo sed -i "/^# %wheel ALL=(ALL) NOPASSWD: ALL/ c%wheel ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
+echo $user_password | sudo sed -i "/^# %wheel ALL=(ALL) NOPASSWD: ALL/ c%wheel ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
 
 echo_green "Installing yay..."
 sudo pacman -Syu --noconfirm git
