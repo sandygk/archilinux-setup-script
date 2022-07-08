@@ -4,5 +4,4 @@
 - cursor
 - add missing settings
 - find more applications
-
-vscode all extensions from store
+- vscode all extensions from store
