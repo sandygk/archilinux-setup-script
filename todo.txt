@@ -1,6 +1,8 @@
 - fix that it keeps asking for password after install
 - it keeps asking for sudo password during install
-- ask all the questions at the beginning
+- set fish as the default shell
+- cursor
 - add missing settings
 - find more applications
-- fix pureref
+
+vscode all extensions from store

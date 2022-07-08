@@ -55,7 +55,7 @@ read_yes_or_no() {
 
 # helper function to install programs
 # by default it uses pacman but if
-# the first argument is "-a" it uses
+# the first argument is "--aur" it uses
 # yay instead. If the package(s) is not found
 # or there is an error, it prompts the user
 # for the option to retry with a different
@@ -64,7 +64,7 @@ install() {
   local installer="sudo pacman"
   local options="-S --noconfirm"
   local args="$@" # the programs to install
-  if [ "$1" = "-a" ]; then
+  if [ "$1" = "--aur" ]; then
     installer="yay"
     args="${@:2}"
   fi
@@ -105,15 +105,15 @@ install neovim
 # needed for neovim to delegate to an external python provider.
 install python-pynvim
 # plugin manager for vim and neovim
-install -a vim-plug
+install --aur vim-plug
 
 echo_green "Installing programming languages..."
 install fish python python2 python-pip nodejs npm gcc
-install -a fisher nvm
+install --aur fisher nvm
 
 echo_green "Installing web browsers..."
 install firefox
-install -a google-chrome brave-bin
+install --aur google-chrome brave-bin
 
 echo_green "Installing file managers..."
 # GUI file manager
@@ -128,11 +128,11 @@ echo_green "Installing fonts..."
 # emoji font
 install ttf-joypixels
 # extensive collection of fonts
-install -a all-repository-fonts
+install --aur all-repository-fonts
 # emoji font
 noto-fonts-emoji\
 
-echo_green "Installing image editors..."
+echo_green "Installing image editors and tools..."
 # raster image editor
 install gimp
 # vector graphics editor
@@ -141,6 +141,8 @@ install inkscape
 install krita
 # simple drawing and image editing tool
 install pinta
+# to store drawing references
+install --aur pureref
 
 echo_green "Installing media players..."
 # video player
@@ -167,13 +169,11 @@ install alacritty
 # reader with support for PDF, EPUB and CBR (comic books)
 install zathura zathura-cb zathura-pdf-mupdf
 # drop box client, see my guide to set it up
-install -a dropbox
+install --aur dropbox
 # pia VPN client
-install -a piavpn-bin
+install --aur piavpn-bin
 # GUI archive manager to compress and decompress files
 install file-roller
-# to store drawing references
-install -a pureref
 # hot key daemon
 install sxhkd
 
@@ -248,13 +248,13 @@ install xdotool
 # utility to identify key codes, run it with `exv` from the console to see it's output
 install xorg-xev
 # utility to mount Android phones via usb
-install -a simple-mtpfs
+install --aur simple-mtpfs
 # utility to download YouTube videos
 install youtube-dl
 
 echo_green "Installing GTK and QT themes and tools..."
 install gtk3 gnome-themes-extra xfce4-settings
-install -a
+install --aur
   breeze-snow-cursor-theme \
   breeze-obsidian-cursor-theme \
   papirus-icon-theme-git \
