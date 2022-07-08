@@ -19,26 +19,6 @@ echo_red() {
   echo -e "${red}$1${noColor}"
 }
 
-# prompts the user to enter and confimr a password
-# leaves the password in the global variable $password
-read_password() {
-  local enterPasswordMessage=$1
-  local firstPassword secondPassword
-  while true; do
-    echo_green "$enterPasswordMessage"
-    read -s firstPassword
-    if [ -z "$firstPassword" ]; then
-      echo_red "The password cannot be empty, try again"
-      continue
-    fi
-    echo_green "Confirm password:"
-    read -s secondPassword
-    [ "$firstPassword" = "$secondPassword" ] && break
-    echo_red "The passwords must match, try again"
-  done
-  password="$firstPassword"
-}
-
 # prompts the user to answer a yes or no question
 # leaves the answer in the global variable $answer
 read_yes_or_no() {
@@ -85,6 +65,9 @@ install() {
 ###########################
 #         PACKAGES        #
 ###########################
+echo_green "Please enter your user's password:"
+read user_password
+
 echo_green "Setting no password for wheel group..."
 sudo sed -i "s/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/" /etc/sudoers
 
