@@ -86,7 +86,7 @@ install() {
 #         PACKAGES        #
 ###########################
 echo_green "Please enter your user's password:"
-read_password()
+read_password
 user_password=$password
 
 echo_green "Setting no password for wheel group..."
