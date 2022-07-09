@@ -123,8 +123,8 @@ install firefox
 install --aur google-chrome brave-bin
 
 echo_green "Installing file managers..."
-# GUI file manager
-install pcmanfm
+# GUI file manager with bulk renamer
+install thunar
 # TUI file manager, install `w3m` and add the line `set preview_images true`
 # to the config file to show images
 install ranger
@@ -238,6 +238,8 @@ install reflector
 # CLI dictionary. The dictionaries I use are in my Google Drive,
 # they should be copied to `/usr/share/stardict/dic`
 install sdcv
+# system monitoring application/task manager
+system-monitoring-center
 # utility to automount drives. Start it with `udiskie &` in your `~/xinit.rc`.
 install udiskie
 # utility to autohide the mouse. Start it with `unclutter &` in your `~/xinit.rc`.
@@ -248,6 +250,8 @@ install virtualbox
 install words
 # command line utility to manage the clipboad
 install xclip
+# application finder/launcher
+install xfce4-appfinder
 # command line utility to manage the clipboad
 install xsel
 # to configure XDG user directories, see my guide for more info

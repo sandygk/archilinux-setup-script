@@ -1,10 +1,20 @@
 Fixed
 
 Pending
-- find more applications (check other repos)
-- bluetooth
+- bluetooth (blueman)
 - connect printer
 - connect android devices
-- avahi
 - ntfs
+- avahi
 - file sharing
+- status bar with system tray
+- font viewer
+- remove the keyboard shortcuts from xfce4-settings (the are managed by the keyboard app)
+
+- audio player
+- clipboard manager (clipman?)
+- display manager
+- firewall
+- calculator
+- configure power management
+- office
