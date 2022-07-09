@@ -106,6 +106,7 @@ rm -rf yay
 echo_green "Installing text and code editors..."
 # code editor
 install code
+install --aur code-marketplace
 # terminal based text editor, run it with nvim
 install neovim
 # needed for neovim to delegate to an external python provider.
@@ -151,8 +152,8 @@ install pinta
 install --aur pureref
 
 echo_green "Installing media players..."
-# video player
-install mpv
+# video player + codedcs
+install mpv vlc
 # ctl tool for controlling media players, more info here:
 # https://github.com/altdesktop/playerctl
 install playerctl
@@ -241,6 +242,8 @@ install sdcv
 install udiskie
 # utility to autohide the mouse. Start it with `unclutter &` in your `~/xinit.rc`.
 install unclutter
+# application to manage virtual machines
+install virtualbox
 # collection of International 'words' files for /usr/share/dict.
 install words
 # command line utility to manage the clipboad
