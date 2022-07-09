@@ -10,6 +10,7 @@ Pending
 - status bar with system tray
 - font viewer
 - remove the keyboard shortcuts from xfce4-settings (the are managed by the keyboard app)
+- configure repos
 
 - audio player
 - clipboard manager (clipman?)

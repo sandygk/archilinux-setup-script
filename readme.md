@@ -8,7 +8,6 @@ I use the official `archinstall` script to achieve this.
 ## Install my programs and apply my settings
 - Log into the fresh *archlinux* install as your regular user.
 - Connect to the internet.
-- Push the latest version of this repo and the `dotfiles` repo.
 - Run:
   ```sh
   git clone https://github.com/sandygk/archlinux-setup-scripts.git
