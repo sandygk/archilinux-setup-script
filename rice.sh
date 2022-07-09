@@ -91,6 +91,7 @@ user_password=$password
 
 echo_green "Setting no password for wheel group..."
 echo $user_password | sudo -S sed -i "s/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/" /etc/sudoers
+echo $user_password | sudo -S rm /etc/sudoers.d/*
 
 echo_green "Installing yay..."
 sudo pacman -Syu --noconfirm git
@@ -268,12 +269,6 @@ install --aur
 ###########################
 #        SETTINGS         #
 ###########################
-
-user_name=$(whoami)
-if [ "$user_name" = "root" ]; then
-  echo_red "This script should not be excecuted by the 'root' user, exiting with errors..."
-  exit 1
-fi
 
 echo_green "Downloading dotfiles"
 cd ~
