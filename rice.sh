@@ -260,7 +260,7 @@ install youtube-dl
 
 echo_green "Installing GTK and QT themes and tools..."
 install gtk3 gnome-themes-extra xfce4-settings
-install --aur
+install --aur \
   breeze-snow-cursor-theme \
   breeze-obsidian-cursor-theme \
   papirus-icon-theme-git \

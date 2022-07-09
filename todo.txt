@@ -2,9 +2,10 @@ Fixed
 - set fish as the default shell
 - fix that it keeps asking for password after install
 - it keeps asking for sudo password during install
+- cursor
 
 Pending
-- cursor
+- screen brightness
 - vscode all extensions from store
 - add missing settings
 - find more applications
