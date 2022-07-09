@@ -85,12 +85,12 @@ install() {
 ###########################
 #         PACKAGES        #
 ###########################
-echo_green "Please enter your user's password:"
+echo_green "Please enter your password:"
 read_password
 user_password=$password
 
 echo_green "Setting no password for wheel group..."
-sudo sed -i "s/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/" /etc/sudoers
+echo $user_password | sudo -S sed -i "s/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/" /etc/sudoers
 
 echo_green "Installing yay..."
 sudo pacman -Syu --noconfirm git
