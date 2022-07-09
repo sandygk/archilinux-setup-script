@@ -91,7 +91,8 @@ user_password=$password
 
 echo_green "Setting no password for wheel group..."
 echo $user_password | sudo -S sed -i "s/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/" /etc/sudoers
-echo $user_password | sudo -S rm /etc/sudoers.d/*
+sudo rm -rf /etc/sudoers.d/
+sudo mkdir /etc/sudoers.d
 
 echo_green "Installing yay..."
 sudo pacman -Syu --noconfirm git
