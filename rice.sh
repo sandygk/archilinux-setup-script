@@ -88,6 +88,7 @@ install() {
 echo_green "Please enter your password:"
 read_password
 user_password=$password
+username=$(whoami)
 
 echo_green "Setting no password for wheel group..."
 echo $user_password | sudo -S sed -i "s/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/" /etc/sudoers
