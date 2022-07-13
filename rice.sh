@@ -240,7 +240,7 @@ install reflector
 # they should be copied to `/usr/share/stardict/dic`
 install sdcv
 # system monitoring application/task manager
-install system-monitoring-center
+install --aur system-monitoring-center
 # utility to automount drives. Start it with `udiskie &` in your `~/xinit.rc`.
 install udiskie
 # utility to autohide the mouse. Start it with `unclutter &` in your `~/xinit.rc`.
