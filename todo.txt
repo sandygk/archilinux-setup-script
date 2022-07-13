@@ -7,14 +7,14 @@ Pending
 - ntfs
 - avahi
 - file sharing
+
 - status bar with system tray
 - font viewer
 - remove the keyboard shortcuts from xfce4-settings (the are managed by the keyboard app)
-- configure repos
+- link config repos to in the repo directory
 
 - audio player
 - clipboard manager (clipman?)
-- display manager
 - firewall
 - calculator
 - configure power management
