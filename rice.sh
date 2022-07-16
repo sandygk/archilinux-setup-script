@@ -124,10 +124,20 @@ install firefox
 install --aur google-chrome brave-bin
 
 echo_green "Installing file managers..."
-# GUI file manager with bulk renamer
+# GUI file manager
 install thunar
-# TUI file manager, install `w3m` and add the line `set preview_images true`
-# to the config file to show images
+# thunar plugins more info here https://wiki.archlinux.org/title/Thunar
+install gvfs
+install thunar-archive-plugin
+install thunar-media-tags-plugin
+install thunar-shares-plugin
+install thunar-volman
+install ffmpegthumbnailer
+install tumbler
+install --aur raw-thumbnailer
+install libgsf
+install gvfs-mtp
+# TUI file manager
 install ranger
 # text-based web browser, I use it to preview images with ranger
 install w3m
