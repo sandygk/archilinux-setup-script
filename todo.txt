@@ -1,12 +1,15 @@
 Fixed
 
 Pending
+- plex
 - bluetooth (blueman)
 - connect printer
-- connect android devices
-- ntfs
+- firewall
 - avahi
-- file sharing
+- file sharing lan
+- file server setup
+- connect android devices
+- close the computer
 
 - status bar with system tray
 - font viewer
@@ -15,7 +18,6 @@ Pending
 
 - audio player
 - clipboard manager (clipman?)
-- firewall
 - calculator
 - configure power management
 - office
