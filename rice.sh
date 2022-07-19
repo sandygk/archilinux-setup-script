@@ -200,6 +200,8 @@ echo_green "Installing utilities..."
 install acpilight
 # GUI to manage the displays
 install arandr
+# Bluetooth manager with GUI
+install blueman
 # GUI to manage audio
 install pavucontrol
 # command line audio utility, I use it to get the volume on the status bar
