@@ -180,8 +180,8 @@ install openscad
 echo_green "Installing miscellaneous applications..."
 # image and gif viewer
 install sxiv
-# GUI and CLI versions of transmission, a BitTorrent client
-install transmission-gtk transmission-cli
+# Bittorrent application
+install qbittorent
 # terminal emulator with a strong focus on simplicity and performance
 install alacritty
 # reader with support for PDF, EPUB and CBR (comic books)
@@ -194,6 +194,8 @@ install --aur piavpn-bin
 install file-roller
 # hot key daemon
 install sxhkd
+# utility to sync directores
+install syncthing
 
 echo_green "Installing utilities..."
 # utility to control backlight, see my screen  brightness guide
@@ -202,10 +204,6 @@ install acpilight
 install arandr
 # Bluetooth manager with GUI
 install blueman
-# GUI to manage audio
-install pavucontrol
-# command line audio utility, I use it to get the volume on the status bar
-install pamixer
 # extensible menu, I install it for `stest` which generates a list of all the applications in the system
 install dmenu
 # notification manager
@@ -214,9 +212,6 @@ install dunst
 # You run it with `flameshot gui`, and you configure it with
 # `flameshot config`, you need to add `flameshot &` to `~/.xinitrc`.
 install flameshot
-# screenshot utility, similar to flameshot but it doesn't
-# allow for annotations
-install maim
 # terminal fuzzy finder utility
 install fzf
 # partition manager, start with `sudo gparted`. After any modification
@@ -232,7 +227,10 @@ install hsetroot
 install inotify-tools
 # command line interface to the system reference manuals
 install man
-# Command line utility to locate files in the system, run with `locate`
+# screenshot utility, similar to flameshot but it doesn't
+# allow for annotations
+install maim
+# command line utility to locate files in the system, run with `locate`
 # and run `sudo updatedb` to update the database.
 install mlocate
 # GUI utility to search for files
@@ -245,11 +243,17 @@ install ntfs-3g
 install numlockx
 # to securely connect remotely
 install openssh
+# GUI to manage audio
+install pavucontrol
+# command line audio utility, I use it to get the volume on the status bar
+install pamixer
 # Xorg compositor but I only use it to fix screen tearing.
 # Start it with `picom &` in your `~/xinit.rc`.
 install picom
-#uUtility to sync files with could storage
+# Utility to sync files with could storage
 install rclone
+# utility to sync folders
+install rsync
 # utility to update the pacman mirrorlist
 install reflector
 # CLI dictionary. The dictionaries I use are in my Google Drive,
@@ -281,6 +285,8 @@ install xorg-xev
 install --aur simple-mtpfs
 # utility to download YouTube videos
 install youtube-dl
+# command line utility to generate gtk GUIs
+install zenity
 
 echo_green "Installing GTK and QT themes and tools..."
 install gtk3 gnome-themes-extra xfce4-settings
@@ -346,8 +352,10 @@ nvim +PlugInstall +qall
 echo_green "Installing VS Code extensions"
 ~/bin/vscode_import_extensions
 
-echo_green "Start/Enable PIA service..."
+echo_green "Enable systemd services..."
 sudo systemctl enable --now piavpn.service
+sudo systemctl enable --now bluetooth.service
+systemctl enable --now syncthing --user
 
 echo_green "You need to reboot the system for some of the settings to be applied"
 read_yes_or_no "Do you want to reboot now?"
