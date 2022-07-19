@@ -230,9 +230,11 @@ install hsetroot
 install inotify-tools
 # command line interface to the system reference manuals
 install man
-# utility to locate files in the system, run with `locate`
+# Command line utility to locate files in the system, run with `locate`
 # and run `sudo updatedb` to update the database.
 install mlocate
+# GUI utility to search for files
+install catfish
 # collection of unix tools, I use it for `ifne` and `mispipe`.
 install moreutils
 # to add support for NTFS drives
