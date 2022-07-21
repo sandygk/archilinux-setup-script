@@ -186,8 +186,6 @@ install qbittorent
 install alacritty
 # reader with support for PDF, EPUB and CBR (comic books)
 install zathura zathura-cb zathura-pdf-mupdf
-# drop box client, see my guide to set it up
-install --aur dropbox
 # pia VPN client
 install --aur piavpn-bin
 # GUI archive manager to compress and decompress files
