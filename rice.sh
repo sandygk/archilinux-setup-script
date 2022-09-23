@@ -248,6 +248,8 @@ install pamixer
 # Xorg compositor but I only use it to fix screen tearing.
 # Start it with `picom &` in your `~/xinit.rc`.
 install picom
+# Tool to control the mouse lights
+install piper
 # Utility to sync files with could storage
 install rclone
 # utility to sync folders
