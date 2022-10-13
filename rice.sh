@@ -128,6 +128,9 @@ echo_green "Installing file managers..."
 install thunar
 # thunar plugins more info here https://wiki.archlinux.org/title/Thunar
 install gvfs
+install gvfs-smb
+install sshfs
+instals gvfs-mtp
 install thunar-archive-plugin
 install thunar-media-tags-plugin
 install thunar-shares-plugin
@@ -136,7 +139,6 @@ install ffmpegthumbnailer
 install tumbler
 install --aur raw-thumbnailer
 install libgsf
-install gvfs-mtp
 # TUI file manager
 install ranger
 # text-based web browser, I use it to preview images with ranger
