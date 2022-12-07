@@ -114,6 +114,8 @@ install neovim
 install python-pynvim
 # plugin manager for vim and neovim
 install --aur vim-plug
+# markdown text editor
+install obsidian
 
 echo_green "Installing programming languages..."
 install fish python python-pip nodejs npm gcc
