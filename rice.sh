@@ -133,7 +133,7 @@ install sshfs
 instals gvfs-mtp
 install thunar-archive-plugin
 install thunar-media-tags-plugin
-install thunar-shares-plugin
+install --aur thunar-shares-plugin
 install thunar-volman
 install ffmpegthumbnailer
 install tumbler
