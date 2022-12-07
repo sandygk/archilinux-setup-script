@@ -183,7 +183,7 @@ echo_green "Installing miscellaneous applications..."
 # image and gif viewer
 install sxiv
 # Bittorrent application
-install qbittorent
+install qbittorrent
 # terminal emulator with a strong focus on simplicity and performance
 install alacritty
 # reader with support for PDF, EPUB and CBR (comic books)
