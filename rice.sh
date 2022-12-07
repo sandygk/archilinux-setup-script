@@ -71,7 +71,7 @@ install() {
 
   while ! eval "$installer $options $args";
   do
-    echo_green "There was an error installing \"$args\" using \"$installer\", probably due to a typo in the package(s) name(s)."
+    echo_red "There was an error installing \"$args\" using \"$installer\", probably due to a typo in the package(s) name(s)."
     read_yes_or_no "Do you want to try again with different package(s) name(s)?"
     if [ $answer == "y" ]; then
       echo_green "Enter the package(s) name(s) space separated:"
