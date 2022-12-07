@@ -203,7 +203,7 @@ install acpilight
 # GUI to manage the displays
 install arandr
 # Bluetooth manager with GUI
-install blueman
+install blueberry
 # extensible menu, I install it for `stest` which generates a list of all the applications in the system
 install dmenu
 # notification manager
