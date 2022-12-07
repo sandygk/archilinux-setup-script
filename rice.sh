@@ -116,8 +116,8 @@ install python-pynvim
 install --aur vim-plug
 
 echo_green "Installing programming languages..."
-install fish python python2 python-pip nodejs npm gcc
-install --aur fisher nvm
+install fish python python-pip nodejs npm gcc
+install --aur fisher nvm python2
 
 echo_green "Installing web browsers..."
 install firefox
@@ -175,7 +175,7 @@ echo_green "Installing 3d editors and 3d printing software..."
 # 3d editor
 install blender
 # 3d printing slicer
-install cura
+install --aur cura
 # 3D CAD scipt based modeller
 install openscad
 
@@ -258,6 +258,8 @@ install rclone
 install rsync
 # utility to update the pacman mirrorlist
 install reflector
+# utility to share and access remote directories
+install samba
 # CLI dictionary. The dictionaries I use are in my Google Drive,
 # they should be copied to `/usr/share/stardict/dic`
 install sdcv
