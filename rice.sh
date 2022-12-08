@@ -173,6 +173,11 @@ install mpv vlc
 # https://github.com/altdesktop/playerctl
 install playerctl
 
+echo_green "Seting up printer..."
+install cups system-config-printer hplip
+sudo systemctl enable --now cups
+sudo usermod -aG lp $user_name
+
 echo_green "Installing 3d editors and 3d printing software..."
 # 3d editor
 install blender
