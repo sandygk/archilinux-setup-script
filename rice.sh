@@ -284,6 +284,8 @@ install words
 install xclip
 # application finder/launcher
 install xfce4-appfinder
+# utility to get a hook for the idle event. Used to hibernate on idle
+install --aur xidlehook
 # command line utility to manage the clipboad
 install xsel
 # to configure XDG user directories, see my guide for more info
@@ -334,6 +336,9 @@ xdg-user-dirs-update
 
 echo_green "Disabling action when lid closes..."
 sudo bash -c "echo 'HandleLidSwitch=ignore' >> /etc/systemd/logind.conf"
+
+echo_green "Hibernate with power button..."
+sudo bash -c "echo -e 'HandlePowerKey=hibernate\nHandlePowerKeyLongPress=poweroff' >> /etc/systemd/logind.conf"
 
 echo_green "Configuring emojis..."
 fc-cache -f -v
