@@ -221,6 +221,8 @@ install dunst
 install flameshot
 # terminal fuzzy finder utility
 install fzf
+# password manager, use 'seahorse' to for a GUI
+gnome-keyring
 # partition manager, start with `sudo gparted`. After any modification
 # you need to click the apply button (which is a check mark)
 install gparted
@@ -270,6 +272,8 @@ install samba
 # CLI dictionary. The dictionaries I use are in my Google Drive,
 # they should be copied to `/usr/share/stardict/dic`
 install sdcv
+# GUI to manage passwords using gnome-keyring
+install seahorse
 # system monitoring application/task manager
 install --aur system-monitoring-center
 # utility to automount drives. Start it with `udiskie &` in your `~/xinit.rc`.
@@ -286,14 +290,16 @@ install xclip
 install xfce4-appfinder
 # utility to get a hook for the idle event. Used to hibernate on idle
 install --aur xidlehook
-# command line utility to manage the clipboad
-install xsel
 # to configure XDG user directories, see my guide for more info
 install xdg-user-dirs
 # window management tool
 install xdotool
 # utility to identify key codes, run it with `exv` from the console to see it's output
 install xorg-xev
+# command line utility to get the idle time
+install xprintidle
+# command line utility to manage the clipboad
+install xsel
 # utility to mount Android phones via usb
 install --aur simple-mtpfs
 # utility to download YouTube videos
